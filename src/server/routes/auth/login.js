@@ -1,30 +1,8 @@
-import express from "express";
+const express = require("express");
 
-import { generateJwtToken } from "../../helpers/tokens.js";
-import expand from "../../controllers/expand.js";
-import { serverUrl } from "../../controllers/env/env.js";
-import LoginEndpointValidation from "../../api/auth/LoginEndpointValidation.js";
+const { generateJwtToken } = require("../../../helpers/tokens");
 
 const loginRouter = express.Router();
-
-// Frontend authentication
-loginRouter.get("/login", async (req, res) => {
-    const home = `${serverUrl()}/home`;
-    
-    try {
-        console.log(`User`);
-        console.log(req.user);
-        
-        let expanded = expand(req);
-        return res.render("auth/login", {
-            page: `Login`,
-            ...expanded,
-        });
-    } catch(err) {
-        console.error(err);
-        return res.redirect(home);
-    }
-});
 
 // Backend authentication 
 loginRouter.post("/login", async (req, res) => {
@@ -60,4 +38,4 @@ loginRouter.post("/login", async (req, res) => {
     }
 });
 
-export default loginRouter;
+module.exports = loginRouter;

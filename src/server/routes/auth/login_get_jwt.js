@@ -4,10 +4,14 @@
  * A specific endpoint for testing the log in behaviour, you just get the jwt directly instead of a whole page.
  * Maybe it would be easier if I just don't redirect the user from the backend when they log in? 😂
  */
-import express from "express";
+// import express from "express";
 
-import { generateJwtToken } from "../../helpers/tokens.js";
-import LoginEndpointValidation from "../../api/auth/LoginEndpointValidation.js";
+// import { generateJwtToken } from "../../helpers/tokens.js";
+// import LoginEndpointValidation from "../../api/auth/LoginEndpointValidation.js";
+const express = require("express");
+
+const { generateJwtToken } = require("../../../helpers/tokens");
+const LoginEndpointValidation = require("../../../api/");
 
 const loginGetJwtRouter = express.Router();
 
@@ -50,4 +54,4 @@ loginGetJwtRouter.post("/login_get_jwt", async(req, res) => {
     }
 });
 
-export default loginGetJwtRouter;
+module.exports = loginGetJwtRouter;

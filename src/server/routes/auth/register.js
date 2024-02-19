@@ -1,20 +1,13 @@
-import express from "express";
+const express = require("express");
 
-import { registerEmail } from "../../helpers/emails.js";
-import { generateId } from "../../helpers/tokens.js";
-import User from "../../models/User.js";
-import expand from "../../controllers/expand.js";
-import validateRegister from "../../public/js/validation/validateRegister.js";
-import { isEmailDisabled } from "../../controllers/env/env.js";
+const { registerEmail } = require("../../../helpers/emails");
+const { generateId } = require("../../../helpers/tokens");
+const User = require("../../../model/User");
+const expand = require("../../../controllers/expand");
+const validateRegister = require("../../../public/js/validation/validateRegister");
+const { isEmailDisabled } = require("../../../controllers/env/env");
 
 const registerRouter = express.Router();
-
-registerRouter.get("/register", (req, res) => {
-    return res.render("auth/register", {
-        page: "Register",
-        ...expand(req)
-    });
-});
 
 // Register user route
 registerRouter.post("/register", async (req, res) => {
@@ -127,4 +120,4 @@ registerRouter.post("/register", async (req, res) => {
     }
 });
 
-export default registerRouter;
+module.exports = registerRouter;

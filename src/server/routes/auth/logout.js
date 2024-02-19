@@ -1,7 +1,7 @@
 /**
  * Request logout
  */
-import express from "express";
+const express = require("express");
 
 const logoutRouter = express.Router();
 
@@ -12,4 +12,4 @@ logoutRouter.get("/logout", (req, res) => {
     return res.redirect("/home");
 });
 
-export default logoutRouter;
+module.exports = logoutRouter;

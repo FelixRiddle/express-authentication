@@ -21,11 +21,13 @@
     "dotenv": "^16.4.4",
     "express": "^4.18.2",
     "express-validator": "^7.0.1",
+    "felixriddle.checkpoint": "^2.0.3",
     "jsonwebtoken": "^9.0.2",
     "nodemailer": "^6.9.9",
     "sequelize": "^6.37.1"
   },
   "devDependencies": {
+    "@types/express": "^4.17.21",
     "concurrently": "^8.2.2",
     "nodemon": "^3.0.3"
   }
