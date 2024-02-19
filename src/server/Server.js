@@ -3,12 +3,13 @@ import cors from "cors";
 import express from 'express';
 
 // This script also sets up the environment variables in .env
-import db from './config/db.js';
 import getUser from './middleware/auth/getUser.js';
-import routes from './routes/index.js';
-import { createPublicUserFolder } from './lib/user/userFolder/userFolder.js';
-import ConfirmationEmailPrivateKey from './controllers/env/private/ConfirmationEmailPrivateKey.js';
-import ResetPasswordPrivateKey from './controllers/env/private/ResetPasswordPrivateKey.js';
+import routes from './server/routes/index.js';
+import ConfirmationEmailPrivateKey from '../controllers/env/private/ConfirmationEmailPrivateKey.js';
+import ResetPasswordPrivateKey from '../controllers/env/private/ResetPasswordPrivateKey.js';
+import databaseConnection from '../database/databaseConnection.js';
+// import { createPublicUserFolder } from './user/userFolder.js';
+const { createPublicUserFolder } = require("../user/userFolder.js");
 
 /**
  * Server
@@ -25,6 +26,8 @@ export default class Server {
     
     /**
      * Setup private access keys
+     * 
+     * Mainly for testing, should be disabled on deployment
      */
     setupPrivateAccessKeys() {
         // --- Email private key ---
@@ -176,9 +179,9 @@ export default class Server {
         
         // Connect to db
         try {
-            await db.authenticate();
+            await databaseConnection.authenticate();
             
-            db.sync();
+            databaseConnection.sync();
             
             console.log("Successfully connected to db");
         } catch(err) {
