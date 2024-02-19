@@ -1,5 +1,5 @@
-import { isEmailDisabled, serverUrl } from "../../controllers/env/env.js";
-import Server from "../../server/Server.js";
+const { isEmailDisabled, serverUrl } = require("../../controllers/env/env");
+const Server = require('../../server/Server');
 
 /**
  * Start the server
@@ -20,7 +20,6 @@ function startServer() {
 
 /**
  * Main function
- * 
  */ 
 async function serverMain(args) {
     // Seed categories

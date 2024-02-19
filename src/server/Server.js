@@ -1,6 +1,6 @@
-import cookieParser from 'cookie-parser';
-import cors from "cors";
-import express from 'express';
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
+const express = require('express');
 
 // This script also sets up the environment variables in .env
 import getUser from './middleware/auth/getUser.js';
@@ -8,13 +8,12 @@ import routes from './server/routes/index.js';
 import ConfirmationEmailPrivateKey from '../controllers/env/private/ConfirmationEmailPrivateKey.js';
 import ResetPasswordPrivateKey from '../controllers/env/private/ResetPasswordPrivateKey.js';
 import databaseConnection from '../database/databaseConnection.js';
-// import { createPublicUserFolder } from './user/userFolder.js';
-const { createPublicUserFolder } = require("../user/userFolder.js");
+const { createPublicUserFolder } = require("../user/userFolder");
 
 /**
  * Server
  */
-export default class Server {
+module.exports = class Server {
     constructor() {
         const app = express();
         this.app = app;
@@ -188,4 +187,4 @@ export default class Server {
             console.error(err);
         }
     }
-}
+};

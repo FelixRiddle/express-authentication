@@ -1,12 +1,6 @@
-import dotenv from "dotenv";
-
-import { setupAll } from "./controllers/env/setDefaultEnvVariables.js";
-import { testSetup } from "./src/test/testSetup.js";
-import executeCommands from "./cmd/index.js";
-
-dotenv.config({
-    path: ".env"
-});
+const { setupAll } = require("./controllers/env/setDefaultEnvVariables");
+const { testSetup } = require("./test/testSetup");
+const executeCommands = require("./cmd/index");
 
 // Run server
 (async () => {

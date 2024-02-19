@@ -1,8 +1,8 @@
-import { ArgumentParser } from "argparse";
+const { ArgumentParser } = require("argparse");
 
-import packageJson from "../../package.json" assert { type: 'json' };
-import serverMain from "./server";
+const serverMain = require("./server/index");
 
+const packageJson = require("../../package.json");
 const version = packageJson.version;
 
 const parser = new ArgumentParser({
@@ -46,11 +46,9 @@ let args = parser.parse_args();
 /**
  * Execute commands
  */
-async function executeCommands() {
+module.exports = async function executeCommands() {
     
     await serverMain(args);
     
     process.exit(0);
-}
-
-export default executeCommands;
+};

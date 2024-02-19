@@ -11,7 +11,7 @@
  * @param {Object} req The request of express
  * @returns {Object} The object containing the data.
  */
-export default function expand(req) {
+module.exports = function expand(req) {
     // Get user
     const userController = req.user;
     

@@ -1,4 +1,4 @@
-import fs from "node:fs";
+const { fs } = require("node:fs");
 
 /**
  * Create route folders
@@ -34,11 +34,7 @@ function createDotCache() {
 /**
  * Setup environment for testing
  */
-function testSetup() {
+module.exports = function testSetup() {
     createDotCache();
     createRouteFolders();
 }
-
-export {
-    testSetup
-};

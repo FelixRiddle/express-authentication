@@ -1,9 +1,9 @@
-import dotenv from "dotenv";
+const dotenv = require('dotenv');
 
 /**
  * Setup protocol
  */
-export function setupProtocol() {
+function setupProtocol() {
     if(!process.env.SERVER_PROTOCOL) {
         process.env["SERVER_PROTOCOL"] = 'https';
     }
@@ -12,7 +12,7 @@ export function setupProtocol() {
 /**
  * Setup environment variables
  */
-export function setupAll() {
+function setupAll() {
     
     // Setup dotenv
     dotenv.config({
@@ -22,3 +22,7 @@ export function setupAll() {
     setupProtocol();
 }
 
+module.exports = {
+    setupAll,
+    setupProtocol,
+};
