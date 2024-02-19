@@ -1,9 +1,9 @@
-import { check, validationResult } from "express-validator";
-import bcrypt from "bcrypt";
-import express from "express";
+const { check, validationResult } = require("express-validator");
+const bcrypt = require("bcrypt");
+const express = require("express");
 
-import User from "../../../models/User.js";
-import { serverUrl } from "../../../controllers/env/env.js";
+const User = require("../../../../model/User");
+const { serverUrl } = require("../../../../controllers/env/env");
 
 // When resetting the password
 const createRouter = express.Router();
@@ -107,4 +107,4 @@ createRouter.post("/create/:token", async (req, res) => {
     }
 });
 
-export default createRouter;
+module.exports = createRouter;

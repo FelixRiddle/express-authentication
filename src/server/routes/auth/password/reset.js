@@ -1,14 +1,17 @@
-import { check, validationResult } from "express-validator";
-import express from "express";
+// import { check, validationResult } from "express-validator";
+// import express from "express";
 
-import { emailForgotPassword } from "../../../helpers/emails.js";
-import { generateId } from "../../../helpers/tokens.js";
-import User from "../../../models/User.js";
-import expand from "../../../controllers/expand.js";
-import { isEmailDisabled } from "../../../controllers/env/env.js";
+// import { emailForgotPassword } from "../../../helpers/emails.js";
+// import { generateId } from "../../../helpers/tokens.js";
+// import User from "../../../models/User.js";
+// import expand from "../../../controllers/expand.js";
+// import { isEmailDisabled } from "../../../controllers/env/env.js";
+const { check, validationResult } = require("express-validator");
+const express = require("express");
+
+const { emailForgotPassword } = require("../../../../")
 
 const resetRouter = express.Router();
-
 
 // Forgot password
 resetRouter.get("/reset", async (req, res) => {
@@ -106,4 +109,4 @@ resetRouter.post("/reset", async (req, res) => {
     }
 });
 
-export default resetRouter;
+module.exports = resetRouter;

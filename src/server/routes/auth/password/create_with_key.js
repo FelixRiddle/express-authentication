@@ -1,9 +1,8 @@
-import { check, validationResult } from "express-validator";
-import bcrypt from "bcrypt";
-import express from "express";
+const { check, validationResult } = require("express-validator");
+const bcrypt = require("bcrypt");
 
-import User from "../../../models/User.js";
-import ResetPasswordPrivateKey from "../../../controllers/env/private/ResetPasswordPrivateKey.js";
+const User = require("../../../../model/User");
+const ResetPasswordPrivateKey = require("../../../../controllers/env/private/ResetPasswordPrivateKey");
 
 const createWithKeyRouter = express.Router();
 
@@ -125,4 +124,4 @@ createWithKeyRouter.post("/create_with_key", async (req, res) => {
     }
 });
 
-export default createWithKeyRouter;
+module.exports = createWithKeyRouter;
