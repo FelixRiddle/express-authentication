@@ -1,6 +1,6 @@
 const fs = require("node:fs");
 
-const NodeErrorHandler = require("../errors/node_error_handler/NodeErrorHandler");
+const NodeErrorHandler = require("../error/node_error_handler/NodeErrorHandler");
 
 /**
  * Create dot cache

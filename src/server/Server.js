@@ -6,6 +6,8 @@ const getUser = require("../middleware/auth/getUser");
 const routes = require("./routes/index")
 const { createPublicUserFolder } = require("../user/userFolder");
 const ConfirmationEmailPrivateKey = require('../controllers/env/private/ConfirmationEmailPrivateKey');
+const ResetPasswordPrivateKey = require('../controllers/env/private/ResetPasswordPrivateKey');
+const databaseConnection = require("../database/databaseConnection");
 
 /**
  * Server
