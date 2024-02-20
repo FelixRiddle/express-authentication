@@ -1,61 +1,44 @@
 const fs = require("node:fs");
 
-/**
- * Create route folders
- */
-function createRouteFolders() {
-    // Create folder routes
-    try {
-        fs.mkdirSync(".cache/routes");
-    } catch(err) {
-        // Folder exists
-        if(err.code === "EEXIST") {
-            // console.log(`It's the useless error`);
-        } else {
-            // This error is something else
-            console.error(err);
-        }
-    }
-    
-    // Create folder auth
-    try {
-        fs.mkdirSync(".cache/routes/auth");
-    } catch(err) {
-        // Folder exists
-        if(err.code === "EEXIST") {
-            // console.log(`It's the useless error`);
-        } else {
-            // This error is something else
-            console.error(err);
-        }
-    }
-}
+const NodeErrorHandler = require("../errors/node_error_handler/NodeErrorHandler");
 
 /**
  * Create dot cache
  */
 function createDotCache() {
     // Create folder .cache
-    try {
-        fs.mkdirSync(".cache");
-    } catch(err) {
-        // Folder exists
-        if(err.code === "EEXIST") {
-            // console.log(`It's the useless error`);
-        } else {
-            // This error is something else
-            console.error(err);
-        }
-    }
+    fs.mkdirSync(".cache");
+}
+
+/**
+ * Create route folders
+ */
+function createRouteFolders() {
+    // Create folder routes
+    fs.mkdirSync(".cache/routes");
+}
+
+function createAuthFolder() {
+    // Create folder auth
+    fs.mkdirSync(".cache/routes/auth");
 }
 
 /**
  * Perform both actions
  */
 function testSetup() {
-    createDotCache();
-    createRouteFolders();
-    console.log("Route folders created!");
+    const nodeErrHandler = new NodeErrorHandler();
+    
+    // .cache
+    nodeErrHandler.setCb(createDotCache)
+        .ignoreFileOrFolderAlreadyExists()
+        .execute()
+        // routes
+        .setCb(createRouteFolders)
+        .execute()
+        // auth
+        .setCb(createAuthFolder)
+        .execute();
 }
 
 /**
