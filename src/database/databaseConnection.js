@@ -1,6 +1,8 @@
 const Sequelize = require("sequelize");
 
-const databaseConnection = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD ?? "", {
+const DB_PASSWORD = process.env.DB_PASSWORD;
+
+const databaseConnection = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, DB_PASSWORD ?? "", {
     host: process.env.DB_HOST ?? "localhost",
     port: process.env.DB_PORT ?? 3306,
     dialect: "mysql",

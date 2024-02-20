@@ -50,5 +50,5 @@ module.exports = async function executeCommands() {
     
     await serverMain(args);
     
-    process.exit(0);
+    // process.exit(0);
 };

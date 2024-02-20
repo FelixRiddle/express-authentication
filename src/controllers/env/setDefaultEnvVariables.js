@@ -19,6 +19,8 @@ function setupAll() {
         path: ".env"
     });
     
+    const DB_PASSWORD = process.env.DB_PASSWORD;
+    
     setupProtocol();
 }
 
