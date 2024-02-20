@@ -1,10 +1,10 @@
-import axios from "axios";
-import generator from 'generate-password';
+const axios = require("axios");
+const generator = require("generate-password");
 
-import { confirmUserEmail } from "../../../spec/routes/auth/authUtils.js";
-import { serverUrl } from "../../controllers/env/env.js";
+const { confirmUserEmail } = require("./authUtils");
+const { serverUrl } = require("../../controllers/env/env");
 
-export default class AuthAPI {
+module.exports = class AuthAPI {
     loggedIn = false;
     
     /**

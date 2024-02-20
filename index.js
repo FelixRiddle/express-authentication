@@ -1,21 +1,20 @@
-const { setupAll } = require("./src/controllers/env/setDefaultEnvVariables");
-
-// Set environment variables
-// Run it first so sequelize doesn't throw an error
-setupAll();
-
-const testSetup = require("./src/test/testSetup");
-const executeCommands = require("./src/cmd/index");
 const { libUserRouter } = require("./src/server/routes");
+const User = require("./src/model/User");
+const protectRoute = require("./src/middleware/auth/protectRoute");
+const getUser = require("./src/middleware/auth/getUser");
+const LoginEndpointValidation = require("./src/api/auth/LoginEndpointValidation");
+const AuthAPI = require("./src/api/auth/AuthAPI");
 
-// Run server
-(async () => {
-    // Create folders
-    testSetup();
-    
-    // Run given commands
-    await executeCommands();
-})();
-
-// The default export are the libraries
-module.exports = libUserRouter;
+// It's not working for me heh
+module.exports = {
+    // API's
+    AuthAPI,
+    LoginEndpointValidation,
+    // Models
+    User,
+    // Routes
+    libUserRouter,
+    // Middleware
+    protectRoute,
+    getUser,
+};

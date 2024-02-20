@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "serve": "nodemon index.js -- --serve",
+    "start": "node src/index.js",
+    "serve": "nodemon src/index.js -- --serve",
     "dev": "concurrently \"DEBUG=express:view DEVELOPMENT=1 npm run serve\""
   },
   "keywords": [],
