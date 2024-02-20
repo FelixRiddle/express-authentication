@@ -18,4 +18,24 @@ routes.use("/user", protectRoute, userRoutes);
 // uses the 'bare' public version, so it would be a hassle to migrate everything.
 routes.use("/public", express.static("public"));
 
-module.exports = routes;
+/**
+ * Library user router
+ * 
+ * To be used as a library by other apps
+ * 
+ * @returns {express.Router}
+ */
+function libUserRouter() {
+    const newAuthRouter = express.Router();
+    
+    // Open routes
+    newAuthRouter.use("/auth", authRoutes);
+    
+    // Protected routes
+    newAuthRouter.use("/user", protectRoute, userRoutes);
+    
+    return newAuthRouter;
+}
+
+const moduleA = module.exports = routes;
+moduleA.libUserRouter = libUserRouter;
