@@ -9,7 +9,7 @@
 const { check, validationResult } = require("express-validator");
 const express = require("express");
 
-const { emailForgotPassword } = require("../../../../");
+const { emailForgotPassword } = require("../../../../..");
 
 const resetRouter = express.Router();
 
