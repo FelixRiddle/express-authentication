@@ -1,8 +1,6 @@
 const axios = require("axios");
-const generator = require("generate-password");
 
-const { confirmUserEmail } = require("./authUtils");
-const serverUrl = require("../../public/web/serverUrl");
+const serverUrl = require("../../web/serverUrl");
 
 module.exports = class AuthAPI {
     loggedIn = false;
@@ -11,37 +9,16 @@ module.exports = class AuthAPI {
      * User data
      * 
      * @param {Object} userData User data
-     * @param {string} serverUrl The server url
+     * @param {string} url The server url
      */
     constructor(userData, url) {
         this.userData = userData;
+        this.serverUrl = serverUrl(url);
         
-        this.setInstance(serverUrl(url));
+        this.setInstance(this.serverUrl);
     }
     
     // --- For easier setup ---
-    /**
-     * Creates the class and logs in with a random user email to prevent collisions
-     */
-    static async createAndLogin(url) {
-        // Setup user
-        const extendEmail = generator.generate({
-            length: 10,
-            numbers: true
-        });
-        const email = `user_${extendEmail}@email.com`;
-        const userData = {
-            name: "Some name",
-            email: email,
-            password: "asd12345",
-            confirmPassword: "asd12345"
-        };
-        const api = new AuthAPI(userData, url);
-        await api.setupLoggedInInstance();
-        
-        return api;
-    }
-    
     /**
      * Create and log in, but with custom user data
      * 
@@ -56,36 +33,6 @@ module.exports = class AuthAPI {
         await api.setupLoggedInInstance();
         
         return api;
-    }
-    
-    /**
-     * Create logged in axios instance
-     * 
-     * Create user, confirm email, login and get axios instance
-     * 
-     * @param {boolean} [debug=false] Debug data
-     * @returns {AxiosInstance} Axios instance
-     */
-    async createLoginGetInstance(debug = false) {
-        const registerRes = await this.registerUser();
-        if(debug) {
-            console.log(`Register res: `, registerRes);
-        }
-        
-        // Confirm user email
-        const confirmRes = await confirmUserEmail(this.userData.email);
-        if(debug) {
-            console.log(`Confirm email res: `, confirmRes);
-        }
-        
-        // Login user to be able to delete it
-        const loginRes = await this.loginGetJwt();
-        if(debug) {
-            console.log(`Login res: `, loginRes);
-            console.log(`Is user logged in?: ${this.loggedIn}`);
-        }
-        
-        return this.instance;
     }
     
     /**

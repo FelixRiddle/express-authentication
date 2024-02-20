@@ -11,11 +11,10 @@ module.exports = class LoginEndpointValidation {
     /**
      * 
      * @param {object} req Express request object
-     * @param {object} userData User data(req.body)
      */
-    constructor(req, userData) {
+    constructor(req) {
         this.req = req;
-        this.userData = userData;
+        this.userData = req.body;
     }
     
     /**

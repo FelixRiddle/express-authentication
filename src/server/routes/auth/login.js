@@ -1,6 +1,7 @@
 const express = require("express");
 
 const { generateJwtToken } = require("../../../helpers/tokens");
+const LoginEndpointValidation = require("../../../api/auth/LoginEndpointValidation");
 
 const loginRouter = express.Router();
 
@@ -10,7 +11,7 @@ loginRouter.post("/login", async (req, res) => {
     console.log(`POST /auth/login`);
     
     try {
-        const loginVal = new LoginEndpointValidation(req, req.body);
+        const loginVal = new LoginEndpointValidation(req);
         
         // The result is the response object
         const result = await loginVal.loginValidation();
