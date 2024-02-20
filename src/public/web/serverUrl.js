@@ -17,6 +17,4 @@ function serverUrl(serverUrl) {
     }
 }
 
-module.exports = {
-    serverUrl,
-};
+module.exports = serverUrl;

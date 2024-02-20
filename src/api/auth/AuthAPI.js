@@ -11,7 +11,7 @@ module.exports = class AuthAPI {
      * User data
      * 
      * @param {Object} userData User data
-     * @param {string} serverUrl The server url
+     * @param {string} url The server url
      */
     constructor(userData, url) {
         this.userData = userData;
