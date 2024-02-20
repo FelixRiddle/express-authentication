@@ -5,6 +5,7 @@ const express = require('express');
 const getUser = require("../middleware/auth/getUser");
 const routes = require("./routes/index")
 const { createPublicUserFolder } = require("../user/userFolder");
+const ConfirmationEmailPrivateKey = require('../controllers/env/private/ConfirmationEmailPrivateKey');
 
 /**
  * Server

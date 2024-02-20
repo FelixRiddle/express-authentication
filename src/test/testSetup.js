@@ -1,4 +1,4 @@
-const { fs } = require("node:fs");
+const fs = require("node:fs");
 
 /**
  * Create route folders
@@ -9,6 +9,12 @@ function createRouteFolders() {
         fs.mkdirSync(".cache/routes");
     } catch(err) {
         // Folder exists
+        if(err.code === "EEXIST") {
+            // console.log(`It's the useless error`);
+        } else {
+            // This error is something else
+            console.error(err);
+        }
     }
     
     // Create folder auth
@@ -16,6 +22,12 @@ function createRouteFolders() {
         fs.mkdirSync(".cache/routes/auth");
     } catch(err) {
         // Folder exists
+        if(err.code === "EEXIST") {
+            // console.log(`It's the useless error`);
+        } else {
+            // This error is something else
+            console.error(err);
+        }
     }
 }
 
@@ -28,6 +40,12 @@ function createDotCache() {
         fs.mkdirSync(".cache");
     } catch(err) {
         // Folder exists
+        if(err.code === "EEXIST") {
+            // console.log(`It's the useless error`);
+        } else {
+            // This error is something else
+            console.error(err);
+        }
     }
 }
 
@@ -37,6 +55,7 @@ function createDotCache() {
 function testSetup() {
     createDotCache();
     createRouteFolders();
+    console.log("Route folders created!");
 }
 
 /**

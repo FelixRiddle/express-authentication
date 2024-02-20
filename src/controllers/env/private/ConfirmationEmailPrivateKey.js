@@ -65,6 +65,8 @@ module.exports = class ConfirmationEmailPrivateKey {
      * Default file path
      */
     defaultFilePath() {
+        // TODO: THis bad, is causing me a lot of problems right now.
+        // But I see no other way
         return "./.cache/routes/auth/confirmationEmailPrivateKey.json";
     }
     

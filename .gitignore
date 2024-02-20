@@ -1,3 +1,22 @@
+# Public folder
+public/css
+public/js
+public/image
+public/img/test
+public/uploads
+public/user
+public/main.js
+
+.cache/
+
+# Package lock backup
+package-lock.json.backup
+
+# Don't ignore images, it's just here to make you remember that
+# images should be pushed to the repository.
+# public/img
+
+# --- NPM ---
 # Logs
 logs
 *.log
