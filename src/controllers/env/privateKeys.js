@@ -1,4 +1,4 @@
-import generator from "generate-password";
+const generator = require("generate-password");
 
 /**
  * Email confirmation private key
@@ -19,7 +19,7 @@ function setConfirmationEmailPrivateKey() {
     });
 }
 
-export {
+module.exports = {
     emailConfirmationPrivateKey,
     setConfirmationEmailPrivateKey
 };

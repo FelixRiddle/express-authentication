@@ -1,11 +1,11 @@
-import express from "express";
+const express = require("express");
 
-import emailRouter from "./email.js";
-import loginRouter from "./login.js";
-import logoutRouter from "./logout.js";
-import registerRouter from "./register.js";
-import passwordRouter from "./password/index.js";
-import loginGetJwtRouter from "./login_get_jwt.js";
+const emailRouter = require("./email");
+const loginRouter = require("./login");
+const logoutRouter = require("./logout");
+const registerRouter = require("./password/index");
+const loginGetJwtRouter = require("./login_get_jwt");
+const passwordRouter = require("./password/index");
 
 const authRoutes = express.Router();
 
@@ -17,4 +17,4 @@ authRoutes.use(logoutRouter);
 authRoutes.use(registerRouter);
 authRoutes.use("/password", passwordRouter);
 
-export default authRoutes;
+module.exports = authRoutes;

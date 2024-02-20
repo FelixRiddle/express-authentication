@@ -1,6 +1,6 @@
-import { constants } from "node:buffer";
-import path from "node:path";
-import fs from "node:fs";
+const { constants } = require("node:buffer");
+const path = require("node:path");
+const fs = require("node:fs");
 
 /**
  * User folder
@@ -11,7 +11,7 @@ import fs from "node:fs";
  * @param {string} userId User id
  * @returns 
  */
-export default function userFolder(userId) {
+function userFolder(userId) {
     const userFolderPath = path.resolve(process.cwd(), `public/user/${userId}`);
     
     // Create user folder
@@ -39,7 +39,7 @@ export default function userFolder(userId) {
 /**
  * Create public user folder
  */
-export function createPublicUserFolder() {
+function createPublicUserFolder() {
     const userFolderPath = path.resolve(process.cwd(), 'public/user');
     
     // Create user folder
@@ -61,6 +61,12 @@ export function createPublicUserFolder() {
  * 
  * @param {string} userId User id
  */
-export function relativeUserFolder(userId) {
+function relativeUserFolder(userId) {
     return `public/user/${userId}`;
 }
+
+module.exports = {
+    userFolder,
+    createPublicUserFolder,
+    relativeUserFolder
+};

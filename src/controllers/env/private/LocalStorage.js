@@ -1,7 +1,7 @@
-import fs from "node:fs";
-import generator from "generate-password";
+const fs = require("node:fs");
+const generator = require("generate-password");
 
-export class LocalStorage {
+module.exports = class LocalStorage {
     /**
      * Inheritent classes will all call this for easier setup.
      * 

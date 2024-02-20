@@ -1,5 +1,5 @@
 const { setupAll } = require("./controllers/env/setDefaultEnvVariables");
-const { testSetup } = require("./test/testSetup");
+const testSetup = require("./test/testSetup");
 const executeCommands = require("./cmd/index");
 
 // Run server

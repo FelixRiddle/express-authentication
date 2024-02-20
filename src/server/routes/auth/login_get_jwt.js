@@ -11,7 +11,7 @@
 const express = require("express");
 
 const { generateJwtToken } = require("../../../helpers/tokens");
-const LoginEndpointValidation = require("../../../api/");
+const LoginEndpointValidation = require("../../../api/auth/LoginEndpointValidation");
 
 const loginGetJwtRouter = express.Router();
 

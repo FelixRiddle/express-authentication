@@ -1,12 +1,12 @@
-import axios from "axios";
+const axios = require("axios");
 
-import { serverUrl } from "../env.js";
-import { LocalStorage } from "./LocalStorage.js";
+const { serverUrl } = require("../env.js");
+const LocalStorage = require("./LocalStorage.js");
 
 /**
  * Reset password private key management
  */
-export default class ResetPasswordPrivateKey extends LocalStorage {
+module.exports = class ResetPasswordPrivateKey extends LocalStorage {
     /**
      * Reset password private key management
      */

@@ -1,10 +1,16 @@
-import axios from "axios";
-import fs from "node:fs";
-import generator from "generate-password";
+// import axios from "axios";
+// import fs from "node:fs";
+// import generator from "generate-password";
 
-import { serverUrl } from "../env.js";
+// import { serverUrl } from "../env.js";
 
-export default class ConfirmationEmailPrivateKey {
+const axios = require("axios");
+const fs = require("node:fs");
+const generator = require("generate-password");
+
+const { serverUrl } = require("../env");
+
+module.exports = class ConfirmationEmailPrivateKey {
     constructor() {
         // Use the default file path
         this.filePath = this.defaultFilePath();

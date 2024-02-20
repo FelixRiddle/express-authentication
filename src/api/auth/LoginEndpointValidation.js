@@ -1,6 +1,6 @@
 const { check, validationResult } = require("express-validator");
 
-const User = require("../../models/User.js");
+const User = require("../../model/User");
 
 /**
  * A whole class for easier handling of the login validation

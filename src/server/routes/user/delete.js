@@ -1,7 +1,7 @@
-import express from "express";
+const express = require("express");
 
-import User from "../../models/User.js";
-import protectRoute from "../../middleware/auth/protectRoute.js";
+const User = require("../../../model/User.js");
+const protectRoute = require("../../../middleware/auth/protectRoute.js");
 
 const deleteRouter = express.Router();
 
@@ -53,4 +53,4 @@ deleteRouter.post("/delete", protectRoute, async (req, res) => {
     }
 });
 
-export default deleteRouter;
+module.exports = deleteRouter;

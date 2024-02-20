@@ -31,4 +31,4 @@ async function serverMain(args) {
     return args;
 }
 
-export default serverMain;
+module.exports = serverMain;

@@ -3,7 +3,7 @@
  * 
  * @returns {string} The serve url(or origin)
  */
-export function serverUrl() {
+function serverUrl() {
     if(!process.env.SERVER_PORT) {
         // When the website is on production, it's unnecessary to give the port
         return `${process.env.SERVER_PROTOCOL}://${process.env.SERVER_HOST}`;
@@ -21,6 +21,11 @@ export function serverUrl() {
  * 
  * @returns {bool}
  */
-export function isEmailDisabled() {
+function isEmailDisabled() {
     return !process.env.DISABLE_EMAIL || process.env.DISABLE_EMAIL.toLowerCase() === "false";
 }
+
+module.exports = {
+    serverUrl,
+    isEmailDisabled
+};

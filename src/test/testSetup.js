@@ -32,9 +32,14 @@ function createDotCache() {
 }
 
 /**
- * Setup environment for testing
+ * Perform both actions
  */
-module.exports = function testSetup() {
+function testSetup() {
     createDotCache();
     createRouteFolders();
 }
+
+/**
+ * Setup environment for testing
+ */
+module.exports = testSetup;
