@@ -1,8 +1,8 @@
 const dotenv = require("dotenv");
 
-const { serverUrl } = require("../../../src/controllers/env/env");
+const { serverUrl } = require("../../../src/controllers/env/env.js");
 const AuthAPI = require("../../../src/api/auth/AuthAPI.js");
-const { confirmUserEmail } = require("./authUtils.js");
+const { confirmUserEmail } = require("../../../disabled_tests/routes/auth/authUtils.js");
 
 describe("auth/email", () => {
     // Setup dotenv

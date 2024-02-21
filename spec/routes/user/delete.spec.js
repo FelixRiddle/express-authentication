@@ -2,7 +2,7 @@ const dotenv = require("dotenv");
 
 const { serverUrl } = require("../../../src/controllers/env/env");
 const AuthAPI = require("../../../src/api/auth/AuthAPI");
-const { confirmUserEmail } = require("../auth/authUtils");
+const { confirmUserEmail } = require("../../../disabled_tests/routes/auth/authUtils");
 
 describe("Delete user", () => {
     // Setup dotenv

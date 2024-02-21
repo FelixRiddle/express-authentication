@@ -1,6 +1,6 @@
 const dotenv = require("dotenv");
 
-const AuthAPI = require("../../../../src/api/auth/AuthAPI");
+const AuthAPI = require("../../../../src/api/auth/AuthAPI.js");
 const ResetPasswordAPI = require("../../../../src/api/auth/ResetPasswordAPI.js");
 
 describe("Start password reset process", () => {
