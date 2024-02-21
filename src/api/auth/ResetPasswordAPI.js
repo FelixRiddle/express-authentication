@@ -11,8 +11,6 @@ module.exports = class ResetPasswordAPI {
     constructor(userData, url) {
         this.userData = userData;
         
-        console.log(`Url: ${url}`);
-        
         // Headers
         let headers = {
             "Content-Type": "application/json"

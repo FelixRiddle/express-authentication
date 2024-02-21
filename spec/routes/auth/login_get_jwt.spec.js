@@ -10,8 +10,8 @@ describe("auth/login_get_jwt", () => {
     dotenv.config({
         path: ".env"
     });
+    
     const ENV_SERVER_URL = envServerUrl();
-    console.log(`Env server url: ${ENV_SERVER_URL}`);
     const url = serverUrl(ENV_SERVER_URL);
     
     it('Successful login', async function() {

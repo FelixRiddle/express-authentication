@@ -1,5 +1,6 @@
 const dotenv = require("dotenv");
 const generator = require("generate-password");
+
 const AuthAPI = require("../../../../src/api/auth/AuthAPI");
 const ResetPasswordAPI = require("../../../../src/api/auth/ResetPasswordAPI");
 const ResetPasswordPrivateKey = require("../../../../src/controllers/env/private/ResetPasswordPrivateKey");
@@ -11,15 +12,16 @@ describe("Create with key", () => {
     dotenv.config({
         path: ".env"
     });
+    
+    // Get server url
     const ENV_SERVER_URL = envServerUrl();
-    console.log(`Env server url: ${ENV_SERVER_URL}`);
     const url = serverUrl(ENV_SERVER_URL);
     
     // Haha I can't believe I wrote this 😂😂😂
     // it('Successfully success', async function() {
     it('Successful password re-creation', async function() {
         // Fast setup
-        const api = await AuthAPI.createAndLogin();
+        const api = await AuthAPI.createAndLogin(url);
         
         const passwordApi = new ResetPasswordAPI(api.userData, url);
         await passwordApi.resetPassword();
@@ -50,7 +52,7 @@ describe("Create with key", () => {
     // Check if we can login with the new password
     it('Successful re-login with the new password', async function() {
         // Fast setup
-        const api = await AuthAPI.createAndLogin();
+        const api = await AuthAPI.createAndLogin(url);
         
         const passwordApi = new ResetPasswordAPI(api.userData, url);
         await passwordApi.resetPassword();
@@ -72,7 +74,7 @@ describe("Create with key", () => {
         await passwordApi.createWithKey(privKeyApi.loadLocally());
         
         // --- Try to log in with the new password ---
-        const apiA = new AuthAPI(newUserData, serverUrl());
+        const apiA = new AuthAPI(newUserData, url);
         const loginRes = await apiA.loginGetJwt();
         
         // Delete user
@@ -84,7 +86,7 @@ describe("Create with key", () => {
     
     it('Password too large', async function() {
         // Fast setup
-        const api = await AuthAPI.createAndLogin();
+        const api = await AuthAPI.createAndLogin(url);
         
         const passwordApi = new ResetPasswordAPI(api.userData, url);
         await passwordApi.resetPassword();
@@ -115,7 +117,7 @@ describe("Create with key", () => {
     
     it('Password too short', async function() {
         // Fast setup
-        const api = await AuthAPI.createAndLogin();
+        const api = await AuthAPI.createAndLogin(url);
         
         const passwordApi = new ResetPasswordAPI(api.userData, url);
         await passwordApi.resetPassword();

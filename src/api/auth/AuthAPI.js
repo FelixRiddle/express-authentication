@@ -3,6 +3,7 @@ const generator = require("generate-password");
 
 const { confirmUserEmail } = require("./authUtils");
 const serverUrl = require("../../public/web/serverUrl");
+const { envServerUrl } = require("../../controllers/env/env");
 
 module.exports = class AuthAPI {
     loggedIn = false;
@@ -56,7 +57,7 @@ module.exports = class AuthAPI {
      */
     static async createAndLoginCustomUserData(userData) {
         // I don't think using the environment variables works in the frontend
-        const url = serverUrl();
+        const url = serverUrl(envServerUrl());
         
         // Setup user
         const api = new AuthAPI(userData, url);

@@ -10,13 +10,14 @@ describe("Start password reset process", () => {
     dotenv.config({
         path: ".env"
     });
+    
     // Get server url
-    const url = serverUrl(envServerUrl());
-    console.log(`Server url: `, url);
+    const ENV_SERVER_URL = envServerUrl();
+    const url = serverUrl(ENV_SERVER_URL);
     
     it('Start password reset process', async function() {
         // Fast setup
-        const api = await AuthAPI.createAndLogin();
+        const api = await AuthAPI.createAndLogin(url);
         
         const passwordApi = new ResetPasswordAPI(api.userData, url);
         const resetRes = await passwordApi.resetPassword();
