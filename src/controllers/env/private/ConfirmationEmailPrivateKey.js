@@ -1,14 +1,8 @@
-// import axios from "axios";
-// import fs from "node:fs";
-// import generator from "generate-password";
-
-// import { serverUrl } from "../env.js";
-
 const axios = require("axios");
 const fs = require("node:fs");
 const generator = require("generate-password");
 
-const { serverUrl } = require("../env");
+const { envServerUrl } = require("../env");
 
 module.exports = class ConfirmationEmailPrivateKey {
     constructor() {
@@ -42,7 +36,7 @@ module.exports = class ConfirmationEmailPrivateKey {
      */
     async confirmEmail(email) {
         const instance = axios.create({
-            baseURL: `${serverUrl()}/auth`,
+            baseURL: `${envServerUrl()}/auth`,
             timeout: 2000,
             headers: {
                 "Content-Type": "application/json"

@@ -1,4 +1,5 @@
 const AuthAPI = require("../api/auth/AuthAPI");
+const { confirmUserEmail } = require("../api/auth/authUtils");
 const { envServerUrl } = require("../controllers/env/env");
 
 /**

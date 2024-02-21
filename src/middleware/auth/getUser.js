@@ -6,11 +6,12 @@
 const jwt = require("jsonwebtoken");
 
 const User = require("../../model/User.js");
-const { serverUrl } = require("../../controllers/env/env");
+const { envServerUrl } = require("../../controllers/env/env");
+const serverUrl = require("../../public/web/serverUrl.js");
 
 // Get user
 const getUser = async (req, res, next) =>  {
-    const home = `${serverUrl()}/home`;
+    const home = `${serverUrl(envServerUrl())}/home`;
     
     // Validate token
     try {

@@ -1,11 +1,12 @@
 const jwt = require("jsonwebtoken");
 
 const User = require("../../model/User");
-const { serverUrl } = require("../../controllers/env/env");
+const { envServerUrl } = require("../../controllers/env/env");
+const serverUrl = require("../../public/web/serverUrl.js");
 
 const protectRoute = async (req, res, next) =>  {
-    const loginPage = `${serverUrl()}/auth/login`;
-    const home = `${serverUrl()}/home`;
+    const loginPage = `${serverUrl(envServerUrl())}/auth/login`;
+    const home = `${serverUrl(envServerUrl())}/home`;
     
     try {
         // Check token
