@@ -5,7 +5,7 @@ const ResetPasswordAPI = require("../../../../src/api/auth/ResetPasswordAPI.js")
 const serverUrl = require("../../../../src/public/web/serverUrl.js");
 const { envServerUrl } = require("../../../../src/controllers/env/env.js");
 
-describe("Start password reset process", () => {
+describe("Start password reset process: ", () => {
     // Setup dotenv
     dotenv.config({
         path: ".env"
@@ -15,7 +15,7 @@ describe("Start password reset process", () => {
     const ENV_SERVER_URL = envServerUrl();
     const url = serverUrl(ENV_SERVER_URL);
     
-    it('Start password reset process', async function() {
+    it('Starts the process', async function() {
         // Fast setup
         const api = await AuthAPI.createAndLogin(url);
         

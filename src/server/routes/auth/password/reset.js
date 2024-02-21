@@ -1,15 +1,10 @@
-// import { check, validationResult } from "express-validator";
-// import express from "express";
-
-// import { emailForgotPassword } from "../../../helpers/emails.js";
-// import { generateId } from "../../../helpers/tokens.js";
-// import User from "../../../models/User.js";
-// import expand from "../../../controllers/expand.js";
-// import { isEmailDisabled } from "../../../controllers/env/env.js";
 const { check, validationResult } = require("express-validator");
 const express = require("express");
+const { v4: uuidv4 } = require('uuid');
 
-const { emailForgotPassword } = require("../../../../..");
+const User = require("../../../../model/User");
+const { emailForgotPassword } = require("../../../../helpers/emails");
+const { isEmailDisabled } = require("../../../../controllers/env/env");
 
 const resetRouter = express.Router();
 
@@ -67,7 +62,7 @@ resetRouter.post("/reset", async (req, res) => {
         }
         
         // Generate a token and send the id
-        user.token = generateId();
+        user.token = uuidv4();
         await user.save();
         
         // Send an email
