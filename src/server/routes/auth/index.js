@@ -3,7 +3,7 @@ const express = require("express");
 const emailRouter = require("./email");
 const loginRouter = require("./login");
 const logoutRouter = require("./logout");
-const registerRouter = require("./password/index");
+const registerRouter = require("./register");
 const loginGetJwtRouter = require("./login_get_jwt");
 const passwordRouter = require("./password/index");
 

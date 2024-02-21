@@ -1,11 +1,11 @@
-import axios from "axios";
+const axios = require("axios");
 
-import { serverUrl } from "../../controllers/env/env.js";
+const { serverUrl } = require("../../controllers/env/env");
 
 /**
  * Non authenticated reset password API
  */
-export default class ResetPasswordAPI {
+module.exports = class ResetPasswordAPI {
     /**
      * 
      * @param {object} userData User data

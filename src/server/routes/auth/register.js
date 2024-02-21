@@ -4,7 +4,7 @@ const { registerEmail } = require("../../../helpers/emails");
 const { generateId } = require("../../../helpers/tokens");
 const User = require("../../../model/User");
 const expand = require("../../../controllers/expand");
-const validateRegister = require("../../../public/js/validation/validateRegister");
+const validateRegister = require("../../../public/validation/validateRegister");
 const { isEmailDisabled } = require("../../../controllers/env/env");
 
 const registerRouter = express.Router();

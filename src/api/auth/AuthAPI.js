@@ -6,6 +6,7 @@ const serverUrl = require("../../public/web/serverUrl");
 
 module.exports = class AuthAPI {
     loggedIn = false;
+    debug = false;
     
     /**
      * User data
@@ -16,7 +17,13 @@ module.exports = class AuthAPI {
     constructor(userData, url) {
         this.userData = userData;
         
-        this.setInstance(serverUrl(url));
+        // Set server url
+        this.serverUrl = serverUrl(url);
+        if(this.debug) {
+            console.log(`Server url: ${this.debug}`);
+        }
+        
+        this.setInstance(this.serverUrl);
     }
     
     // --- For easier setup ---
@@ -133,11 +140,18 @@ module.exports = class AuthAPI {
         }
     }
     
+    // --- Operations ---
     /**
      * Register user
      */
     async registerUser() {
-        const res = await this.instance.post("/auth/register", this.userData)
+        const endpoint = "/auth/register";
+        if(this.debug) {
+            const fullUrl = `${this.serverUrl}${endpoint}`;
+            console.log(`Complete url: ${fullUrl}`);
+        }
+        
+        const res = await this.instance.post(endpoint, this.userData)
             .then((res) => res)
             .catch((err) => {
                 console.error(err);
@@ -153,7 +167,13 @@ module.exports = class AuthAPI {
      * It's not very helpful, because I can't access protected endpoints with the axios instance.
      */
     async loginUser() {
-        const res = await this.instance.post("/auth/login", {
+        const endpoint = "/auth/login";
+        if(this.debug) {
+            const fullUrl = `${this.serverUrl}${endpoint}`;
+            console.log(`Complete url: ${fullUrl}`);
+        }
+        
+        const res = await this.instance.post(endpoint, {
             email: this.userData.email,
             password: this.userData.password,
         })
@@ -172,7 +192,13 @@ module.exports = class AuthAPI {
      * Use to login and get the jwt token directly
      */
     async loginGetJwt() {
-        const res = await this.instance.post('/auth/login_get_jwt', {
+        const endpoint = "/auth/login_get_jwt";
+        if(this.debug) {
+            const fullUrl = `${this.serverUrl}${endpoint}`;
+            console.log(`Complete url: ${fullUrl}`);
+        }
+        
+        const res = await this.instance.post(endpoint, {
             email: this.userData.email,
             password: this.userData.password,
         })
@@ -195,7 +221,13 @@ module.exports = class AuthAPI {
      * Delete user
      */
     async deleteUser() {
-        const res = await this.instance.post("/user/delete", this.userData)
+        const endpoint = "/user/delete";
+        if(this.debug) {
+            const fullUrl = `${this.serverUrl}${endpoint}`;
+            console.log(`Complete url: ${fullUrl}`);
+        }
+        
+        const res = await this.instance.post(endpoint, this.userData)
             .then((res) => res)
             .catch((err) => {
                 console.error(err);
@@ -213,7 +245,13 @@ module.exports = class AuthAPI {
      * email exists and the user owns that email.
      */
     async enableResetPassword() {
-        const res = await this.instance.post("/user/password/reset", {
+        const endpoint = "/user/password/reset";
+        if(this.debug) {
+            const fullUrl = `${this.serverUrl}${endpoint}`;
+            console.log(`Complete url: ${fullUrl}`);
+        }
+        
+        const res = await this.instance.post(endpoint, {
             email: this.userData.email,
         })
             .then((res) => res.data)
@@ -235,7 +273,13 @@ module.exports = class AuthAPI {
      * @param {string} confirmPassword 
      */
     async createNewPassword(token, password, confirmPassword) {
-        const res = await this.instance.post(`/user/password/create/${token}`, {
+        const endpoint = `/user/password/create/${token}`;
+        if(this.debug) {
+            const fullUrl = `${this.serverUrl}${endpoint}`;
+            console.log(`Complete url: ${fullUrl}`);
+        }
+        
+        const res = await this.instance.post(endpoint, {
             password,
             confirmPassword
         })
