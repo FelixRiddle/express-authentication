@@ -2,7 +2,7 @@ const dotenv = require("dotenv");
 
 const { serverUrl } = require("../../../src/controllers/env/env");
 const AuthAPI = require("../../../src/api/auth/AuthAPI");
-const { confirmUserEmail } = require("../../../disabled_tests/routes/auth/authUtils");
+const { confirmUserEmail } = require("./authUtils");
 
 describe("auth/login_get_jwt", () => {
     // Setup dotenv
