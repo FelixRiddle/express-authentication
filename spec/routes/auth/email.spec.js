@@ -1,8 +1,9 @@
 const dotenv = require("dotenv");
 
-const { serverUrl } = require("../../../src/controllers/env/env.js");
 const AuthAPI = require("../../../src/api/auth/AuthAPI.js");
 const { confirmUserEmail } = require("./authUtils.js");
+const serverUrl = require("../../../src/public/web/serverUrl.js");
+const { envServerUrl } = require("../../../src/controllers/env/env.js");
 
 describe("auth/email", () => {
     // Setup dotenv
@@ -18,7 +19,7 @@ describe("auth/email", () => {
         confirmPassword: "asd12345"
     };
     
-    const url = serverUrl();
+    const url = serverUrl(envServerUrl());
     const api = new AuthAPI(userData, url);
     
     it('Confirm email', async function() {

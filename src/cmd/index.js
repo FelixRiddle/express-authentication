@@ -1,6 +1,7 @@
 const { ArgumentParser } = require("argparse");
 
 const serverMain = require("./server/index");
+const testRegister = require("./testRegister");
 
 const packageJson = require("../../package.json");
 const version = packageJson.version;
@@ -40,6 +41,12 @@ parser.add_argument("--serve", {
     action: "store_true"
 })
 
+// --- Testing ---
+parser.add_argument("--test-register", {
+    help: "Test the register route",
+    action: "store_true"
+});
+
 // Parse arguments
 let args = parser.parse_args();
 
@@ -49,6 +56,8 @@ let args = parser.parse_args();
 module.exports = async function executeCommands() {
     
     await serverMain(args);
+    
+    await testRegister(args);
     
     // process.exit(0);
 };

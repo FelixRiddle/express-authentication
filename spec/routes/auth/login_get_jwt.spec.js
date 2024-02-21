@@ -1,16 +1,18 @@
 const dotenv = require("dotenv");
 
-const { serverUrl } = require("../../../src/controllers/env/env");
 const AuthAPI = require("../../../src/api/auth/AuthAPI");
 const { confirmUserEmail } = require("./authUtils");
+const serverUrl = require("../../../src/public/web/serverUrl");
+const { envServerUrl } = require("../../../src/controllers/env/env");
 
 describe("auth/login_get_jwt", () => {
     // Setup dotenv
     dotenv.config({
         path: ".env"
     });
-    
-    const url = serverUrl();
+    const ENV_SERVER_URL = envServerUrl();
+    console.log(`Env server url: ${ENV_SERVER_URL}`);
+    const url = serverUrl(ENV_SERVER_URL);
     
     it('Successful login', async function() {
         // Create user data

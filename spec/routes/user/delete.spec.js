@@ -1,8 +1,9 @@
 const dotenv = require("dotenv");
 
-const { serverUrl } = require("../../../src/controllers/env/env");
 const AuthAPI = require("../../../src/api/auth/AuthAPI");
 const { confirmUserEmail } = require("../auth/authUtils");
+const serverUrl = require("../../../src/public/web/serverUrl");
+const { envServerUrl } = require("../../../src/controllers/env/env");
 
 describe("Delete user", () => {
     // Setup dotenv
@@ -18,7 +19,7 @@ describe("Delete user", () => {
         confirmPassword: "asd12345"
     };
     
-    const url = serverUrl();
+    const url = serverUrl(envServerUrl());
     const api = new AuthAPI(userData, url);
     
     it('Delete user', async function() {

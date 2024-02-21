@@ -2,18 +2,23 @@ const dotenv = require("dotenv");
 
 const AuthAPI = require("../../../../src/api/auth/AuthAPI.js");
 const ResetPasswordAPI = require("../../../../src/api/auth/ResetPasswordAPI.js");
+const serverUrl = require("../../../../src/public/web/serverUrl.js");
+const { envServerUrl } = require("../../../../src/controllers/env/env.js");
 
 describe("Start password reset process", () => {
     // Setup dotenv
     dotenv.config({
         path: ".env"
     });
+    // Get server url
+    const url = serverUrl(envServerUrl());
+    console.log(`Server url: `, url);
     
-    it('Successfully started', async function() {
+    it('Start password reset process', async function() {
         // Fast setup
         const api = await AuthAPI.createAndLogin();
         
-        const passwordApi = new ResetPasswordAPI(api.userData);
+        const passwordApi = new ResetPasswordAPI(api.userData, url);
         const resetRes = await passwordApi.resetPassword();
         
         // Delete user

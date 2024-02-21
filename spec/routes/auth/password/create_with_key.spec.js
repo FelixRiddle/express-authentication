@@ -3,13 +3,17 @@ const generator = require("generate-password");
 const AuthAPI = require("../../../../src/api/auth/AuthAPI");
 const ResetPasswordAPI = require("../../../../src/api/auth/ResetPasswordAPI");
 const ResetPasswordPrivateKey = require("../../../../src/controllers/env/private/ResetPasswordPrivateKey");
-const { serverUrl } = require("../../../../src/controllers/env/env");
+const serverUrl = require("../../../../src/public/web/serverUrl");
+const { envServerUrl } = require("../../../../src/controllers/env/env");
 
 describe("Create with key", () => {
     // Setup dotenv
     dotenv.config({
         path: ".env"
     });
+    const ENV_SERVER_URL = envServerUrl();
+    console.log(`Env server url: ${ENV_SERVER_URL}`);
+    const url = serverUrl(ENV_SERVER_URL);
     
     // Haha I can't believe I wrote this 😂😂😂
     // it('Successfully success', async function() {
@@ -17,7 +21,7 @@ describe("Create with key", () => {
         // Fast setup
         const api = await AuthAPI.createAndLogin();
         
-        const passwordApi = new ResetPasswordAPI(api.userData);
+        const passwordApi = new ResetPasswordAPI(api.userData, url);
         await passwordApi.resetPassword();
         
         // Clone data and change password
@@ -48,7 +52,7 @@ describe("Create with key", () => {
         // Fast setup
         const api = await AuthAPI.createAndLogin();
         
-        const passwordApi = new ResetPasswordAPI(api.userData);
+        const passwordApi = new ResetPasswordAPI(api.userData, url);
         await passwordApi.resetPassword();
         
         // Clone data and change password
@@ -82,7 +86,7 @@ describe("Create with key", () => {
         // Fast setup
         const api = await AuthAPI.createAndLogin();
         
-        const passwordApi = new ResetPasswordAPI(api.userData);
+        const passwordApi = new ResetPasswordAPI(api.userData, url);
         await passwordApi.resetPassword();
         
         // Clone data and change password
@@ -113,7 +117,7 @@ describe("Create with key", () => {
         // Fast setup
         const api = await AuthAPI.createAndLogin();
         
-        const passwordApi = new ResetPasswordAPI(api.userData);
+        const passwordApi = new ResetPasswordAPI(api.userData, url);
         await passwordApi.resetPassword();
         
         // Clone data and change password

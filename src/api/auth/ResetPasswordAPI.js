@@ -1,7 +1,5 @@
 const axios = require("axios");
 
-const { serverUrl } = require("../../controllers/env/env");
-
 /**
  * Non authenticated reset password API
  */
@@ -10,10 +8,10 @@ module.exports = class ResetPasswordAPI {
      * 
      * @param {object} userData User data
      */
-    constructor(userData) {
+    constructor(userData, url) {
         this.userData = userData;
         
-        const url = serverUrl();
+        console.log(`Url: ${url}`);
         
         // Headers
         let headers = {

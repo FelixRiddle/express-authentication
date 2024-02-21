@@ -1,4 +1,4 @@
-const { isEmailDisabled, serverUrl } = require("../../controllers/env/env");
+const { isEmailDisabled, envServerUrl } = require("../../controllers/env/env");
 const Server = require('../../server/Server');
 
 /**
@@ -6,7 +6,7 @@ const Server = require('../../server/Server');
  */
 function startServer() {
     
-    console.log(`Server url: ${serverUrl()}`);
+    console.log(`Server url: ${envServerUrl()}`);
     console.log(`Is email disabled?: `, isEmailDisabled());
     
     let server = new Server();
