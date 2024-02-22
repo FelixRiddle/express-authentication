@@ -6,13 +6,11 @@
 const jwt = require("jsonwebtoken");
 
 const User = require("../../model/User.js");
-const { envServerUrl } = require("../../controllers/env/env");
-const serverUrl = require("../../public/web/serverUrl.js");
+
+const GET_USER_DEBUG = false;
 
 // Get user
 const getUser = async (req, res, next) =>  {
-    const home = `${serverUrl(envServerUrl())}/home`;
-    
     // Validate token
     try {
         // Check token
@@ -26,9 +24,9 @@ const getUser = async (req, res, next) =>  {
                 const jwtData = jwt.verify(token, process.env.JWT_SECRET_KEY);
                 decoded = jwtData;
             } catch(err) {
-                console.log(`The token couldn't be verified, maybe it has expired!`);
-                // console.error(err);
-                // return res.redirect(home);
+                if(GET_USER_DEBUG) {
+                    console.log(`The token couldn't be verified, maybe it has expired!`);
+                }
             }
             
             // Validate user
@@ -37,20 +35,20 @@ const getUser = async (req, res, next) =>  {
             // Store user on the request
             if(user) {
                 req.user = user;
-                // return next();
             } else {
-                console.log(`The user doesn't exists`);
-                // return res.redirect(home);
+                if(GET_USER_DEBUG) {
+                    console.log(`The user doesn't exists`);
+                }
             }
         } else {
-            console.log(`The token wasn't found!`);
-            // return res.redirect(home);
+            if(GET_USER_DEBUG) {
+                console.log(`The token wasn't found!`);
+            }
         }
     } catch(err) {
-        console.log(`Error when veryfing token`);
-        
-        // Grave mistake, the page doesn't even render.
-        // return res.redirect(home);
+        if(GET_USER_DEBUG) {
+            console.log(`Error when veryfing token`);
+        }
     }
     
     // Regardless of whether the token was found or not
