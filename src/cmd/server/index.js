@@ -1,5 +1,5 @@
 const { isEmailDisabled, envServerUrl } = require("../../controllers/env/env");
-const Server = require('../../server/Server');
+const Server = require('../../server/Server.cjs');
 
 /**
  * Start the server

@@ -7,7 +7,6 @@ const loginRouter = express.Router();
 
 // Backend authentication 
 loginRouter.post("/login", async (req, res) => {
-    const home = `${serverUrl()}/home`;
     console.log(`POST /auth/login`);
     
     try {
@@ -31,11 +30,16 @@ loginRouter.post("/login", async (req, res) => {
             .cookie("_token", token, {
                 httpOnly: false,
             })
-            .redirect(home);
+            .send({
+                loggedIn: true,
+            });
     } catch(err) {
         console.error(err);
         console.log(`There was an error when the user tried to log in redirecting to home`);
-        return res.redirect(home);
+        return res
+            .send({
+                loggedIn: true,
+            });
     }
 });
 
