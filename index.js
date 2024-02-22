@@ -1,7 +1,13 @@
 const LoginEndpointValidation = require("./src/api/auth/LoginEndpointValidation");
 const AuthAPI = require("./src/api/auth/AuthAPI");
+const ResetPasswordAPI = require("./src/api/auth/ResetPasswordAPI");
+
 const FrontendAuthAPI = require("./src/public/api/auth/FrontendAuthAPI");
 
+// Email
+const confirmUserEmailWithPrivateKey = require("./src/email/confirmUserEmailWithPrivateKey");
+
+// Models
 const User = require("./src/model/User");
 
 const { libUserRouter } = require("./src/server/routes");
@@ -15,6 +21,10 @@ module.exports = {
     AuthAPI,
     LoginEndpointValidation,
     FrontendAuthAPI,
+    ResetPasswordAPI,
+    
+    // E-Mail
+    confirmUserEmailWithPrivateKey,
     
     // Models
     User,

@@ -1,7 +1,7 @@
 const dotenv = require("dotenv");
 
 const AuthAPI = require("../../../src/api/auth/AuthAPI");
-const { confirmUserEmail } = require("./authUtils");
+const confirmUserEmailWithPrivateKey = require("../../../src/email/confirmUserEmailWithPrivateKey");
 const serverUrl = require("../../../src/public/web/serverUrl");
 const { envServerUrl } = require("../../../src/controllers/env/env");
 
@@ -26,7 +26,7 @@ describe("auth/login_get_jwt", () => {
         
         await api.registerUser();
         
-        await confirmUserEmail(userData.email);
+        await confirmUserEmailWithPrivateKey(userData.email);
         
         const loginRes = await api.loginGetJwt();
         
@@ -50,7 +50,7 @@ describe("auth/login_get_jwt", () => {
         
         await api.registerUser();
         
-        await confirmUserEmail(userData.email);
+        await confirmUserEmailWithPrivateKey(userData.email);
         
         // Change password
         api.userData.password = "asdf123456";
@@ -79,7 +79,7 @@ describe("auth/login_get_jwt", () => {
         
         await api.registerUser();
         
-        await confirmUserEmail(userData.email);
+        await confirmUserEmailWithPrivateKey(userData.email);
         
         api.userData.password = "asd";
         const loginRes = await api.loginGetJwt();
@@ -105,7 +105,7 @@ describe("auth/login_get_jwt", () => {
         
         await api.registerUser();
         
-        await confirmUserEmail(userData.email);
+        await confirmUserEmailWithPrivateKey(userData.email);
         
         api.userData.password = "sK4z5HQeMT5wQzyrqkwkKi1fTyc7eJe0sBjPpHM83pE3PRce4utfPlOpA6h4pEGm9";
         const loginRes = await api.loginGetJwt();
@@ -133,7 +133,7 @@ describe("auth/login_get_jwt", () => {
         
         await api.registerUser();
         
-        await confirmUserEmail(userData.email);
+        await confirmUserEmailWithPrivateKey(userData.email);
         
         api.userData.email = "aaaaa@com";
         const loginRes = await api.loginGetJwt();

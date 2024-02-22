@@ -1,7 +1,7 @@
 const dotenv = require("dotenv");
 
 const AuthAPI = require("../../../src/api/auth/AuthAPI");
-const { confirmUserEmail } = require("./authUtils");
+const confirmUserEmailWithPrivateKey = require("../../../src/email/confirmUserEmailWithPrivateKey");
 const serverUrl = require("../../../src/public/web/serverUrl");
 const { envServerUrl } = require("../../../src/controllers/env/env");
 
@@ -31,7 +31,7 @@ describe("User register", () => {
         const registerRes = await api.registerUser();
         
         // Confirm user email
-        await confirmUserEmail(userData.email);
+        await confirmUserEmailWithPrivateKey(userData.email);
         
         // Login user to be able to delete it
         await api.loginGetJwt();

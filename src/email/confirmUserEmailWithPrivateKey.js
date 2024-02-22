@@ -1,11 +1,11 @@
-const ConfirmationEmailPrivateKey = require("../../../src/controllers/env/private/ConfirmationEmailPrivateKey");
+const ConfirmationEmailPrivateKey = require("../controllers/env/private/ConfirmationEmailPrivateKey");
 
 /**
  * Confirm user email through backdoor access
  * 
  * @param {string} email User email
  */
-async function confirmUserEmail(email) {
+async function confirmUserEmailWithPrivateKey(email) {
     
     // Confirm E-mail
     // Get private access key to confirm the email
@@ -16,6 +16,4 @@ async function confirmUserEmail(email) {
     return res;
 }
 
-module.exports = {
-    confirmUserEmail
-};
+module.exports = confirmUserEmailWithPrivateKey;

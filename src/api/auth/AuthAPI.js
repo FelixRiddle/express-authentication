@@ -1,7 +1,7 @@
 const axios = require("axios");
 const generator = require("generate-password");
 
-const { confirmUserEmail } = require("./authUtils");
+const confirmUserEmailWithPrivateKey = require("../../email/confirmUserEmailWithPrivateKey");
 const serverUrl = require("../../public/web/serverUrl");
 const { envServerUrl } = require("../../controllers/env/env");
 
@@ -82,7 +82,7 @@ module.exports = class AuthAPI {
         }
         
         // Confirm user email
-        const confirmRes = await confirmUserEmail(this.userData.email);
+        const confirmRes = await confirmUserEmailWithPrivateKey(this.userData.email);
         if(debug) {
             console.log(`Confirm email res: `, confirmRes);
         }

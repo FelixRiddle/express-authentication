@@ -1,7 +1,7 @@
 const dotenv = require("dotenv");
 
 const AuthAPI = require("../../../src/api/auth/AuthAPI.js");
-const { confirmUserEmail } = require("./authUtils.js");
+const confirmUserEmailWithPrivateKey = require("../../../src/email/confirmUserEmailWithPrivateKey");
 const serverUrl = require("../../../src/public/web/serverUrl.js");
 const { envServerUrl } = require("../../../src/controllers/env/env.js");
 
@@ -25,7 +25,7 @@ describe("auth/email", () => {
     it('Confirm email', async function() {
         await api.registerUser();
         
-        const confirmEmailRes = await confirmUserEmail(userData.email);
+        const confirmEmailRes = await confirmUserEmailWithPrivateKey(userData.email);
         
         await api.loginGetJwt();
         

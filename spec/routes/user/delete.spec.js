@@ -1,7 +1,7 @@
 const dotenv = require("dotenv");
 
 const AuthAPI = require("../../../src/api/auth/AuthAPI");
-const { confirmUserEmail } = require("../auth/authUtils");
+const confirmUserEmailWithPrivateKey = require("../../../src/email/confirmUserEmailWithPrivateKey");
 const serverUrl = require("../../../src/public/web/serverUrl");
 const { envServerUrl } = require("../../../src/controllers/env/env");
 
@@ -25,7 +25,7 @@ describe("Delete user", () => {
     it('Delete user', async function() {
         await api.registerUser();
         
-        await confirmUserEmail(userData.email);
+        await confirmUserEmailWithPrivateKey(userData.email);
         
         await api.loginGetJwt();
         

@@ -1,5 +1,5 @@
 const AuthAPI = require("../api/auth/AuthAPI");
-const { confirmUserEmail } = require("../api/auth/authUtils");
+const confirmUserEmailWithPrivateKey = require("../email/confirmUserEmailWithPrivateKey");
 const { envServerUrl } = require("../controllers/env/env");
 
 /**
@@ -24,7 +24,7 @@ async function testRegister() {
     console.log(`Registered user: `, registeredUser);
     
     // Confirm user email
-    await confirmUserEmail(userData.email);
+    await confirmUserEmailWithPrivateKey(userData.email);
     
     // Login user to be able to delete it
     await api.loginGetJwt();
