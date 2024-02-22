@@ -7,16 +7,17 @@ const { envServerUrl } = require("../../controllers/env/env");
 
 module.exports = class AuthAPI {
     loggedIn = false;
-    debug = false;
     
     /**
      * User data
      * 
      * @param {Object} userData User data
      * @param {string} url The server url
+     * @param {boolean} [debug=false] Debug mode for this API
      */
-    constructor(userData, url) {
+    constructor(userData, url, debug=false) {
         this.userData = userData;
+        this.debug = debug;
         
         // Set server url
         this.serverUrl = serverUrl(url);
@@ -162,6 +163,18 @@ module.exports = class AuthAPI {
         return res.data;
     }
     
+    // --- Login ---
+    /**
+     * Update logged in
+     * 
+     * @param {Object} res Axios response object
+     */
+    updateLoggedIn(res) {
+        this.setInstance(this.serverUrl, res.data.token);
+        
+        this.loggedIn = true;
+    }
+    
     /**
      * Login user
      * 
@@ -174,15 +187,15 @@ module.exports = class AuthAPI {
             console.log(`Complete url: ${fullUrl}`);
         }
         
-        const res = await this.instance.post(endpoint, {
-            email: this.userData.email,
-            password: this.userData.password,
-        })
+        const res = await this.instance.post(endpoint, this.userData)
             .then((res) => res)
             .catch((err) => {
                 console.error(err);
                 return;
             });
+        
+        // Update logged in status
+        this.updateLoggedIn(res);
         
         return res.data;
     }
@@ -210,10 +223,8 @@ module.exports = class AuthAPI {
                 return;
             });
         
-        // Update instance
-        this.setInstance(this.serverUrl, res.data.token);
-        
-        this.loggedIn = true;
+        // Update logged in status
+        this.updateLoggedIn(res);
         
         return res.data;
     }

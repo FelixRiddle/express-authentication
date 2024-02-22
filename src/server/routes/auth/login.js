@@ -31,6 +31,7 @@ loginRouter.post("/login", async (req, res) => {
                 httpOnly: false,
             })
             .send({
+                token,
                 loggedIn: true,
             });
     } catch(err) {

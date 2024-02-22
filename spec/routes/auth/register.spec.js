@@ -15,6 +15,8 @@ describe("User register", () => {
     const url = serverUrl(ENV_SERVER_URL);
     
     // Successful registration
+    // TODO: This one sometimes fails, I don't know why
+    // but surely it must be an [Insignificant] problem.
     it('Successful user registration', async function() {
         // Create user data
         const userData = {
