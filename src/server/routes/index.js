@@ -23,6 +23,9 @@ routes.use("/public", express.static("public"));
  * 
  * To be used as a library by other apps
  * 
+ * WARNING: Remember to call it!!!
+ * This is a function, I wasted 4 hours because I forgot to call it 😭😭😭😭😭
+ * 
  * @returns {express.Router}
  */
 function libUserRouter() {
