@@ -4,6 +4,8 @@ const ResetPasswordAPI = require("./src/api/auth/ResetPasswordAPI");
 
 const FrontendAuthAPI = require("./src/public/api/auth/FrontendAuthAPI");
 
+const ResetPasswordPrivateKey = require("./src/controllers/env/private/ResetPasswordPrivateKey");
+
 // Email
 const confirmUserEmailWithPrivateKey = require("./src/email/confirmUserEmailWithPrivateKey");
 
@@ -22,6 +24,7 @@ module.exports = {
     LoginEndpointValidation,
     FrontendAuthAPI,
     ResetPasswordAPI,
+    ResetPasswordPrivateKey,
     
     // E-Mail
     confirmUserEmailWithPrivateKey,
