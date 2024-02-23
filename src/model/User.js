@@ -1,11 +1,11 @@
-// import { DataTypes } from "sequelize";
-// import bcrypt from "bcrypt";
 const { DataTypes } = require("sequelize");
 const bcrypt = require("bcrypt");
 
-const databaseConnection = require("../database/databaseConnection.js");
+const MySQLDatabaseConnection = require("../database/MySQLDatabaseConnection.js");
 
-const User = databaseConnection.define("user", {
+const TABLE_NAME = process.env.DATABASE_COLLECTION_NAME ?? "user";
+
+const User = MySQLDatabaseConnection.define("user", {
     id: {
         type: DataTypes.BIGINT,
         allowNull: false,
@@ -27,7 +27,7 @@ const User = databaseConnection.define("user", {
     token: DataTypes.STRING,
     confirmedEmail: DataTypes.BOOLEAN,
 }, {
-    tableName: "user",
+    tableName: TABLE_NAME,
     hooks: {
         // Before creating the user on the database
         beforeCreate: async function(user) {
@@ -39,14 +39,20 @@ const User = databaseConnection.define("user", {
         }
     },
     scopes: {
+        // Should be called something else like
+        // 'frontend'
         deletePassword: {
             attributes: {
                 exclude: [
                     "password",
                     "token",
-                    "confirmedEmail",
-                    "createdAt",
-                    "updatedAt"
+                    
+                    // Why would you need to remove confirmed email?
+                    // "confirmedEmail",
+                    
+                    // Not important either
+                    // "createdAt",
+                    // "updatedAt"
                 ]
             }
         }

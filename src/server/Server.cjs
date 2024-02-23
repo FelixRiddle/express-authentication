@@ -7,7 +7,7 @@ const routes = require("./routes/index")
 const { createPublicUserFolder } = require("../user/userFolder");
 const ConfirmationEmailPrivateKey = require('../controllers/env/private/ConfirmationEmailPrivateKey');
 const ResetPasswordPrivateKey = require('../controllers/env/private/ResetPasswordPrivateKey');
-const databaseConnection = require("../database/databaseConnection");
+const MySQLDatabaseConnection = require("../database/MySQLDatabaseConnection");
 
 /**
  * Server
@@ -177,9 +177,9 @@ module.exports = class Server {
         
         // Connect to db
         try {
-            await databaseConnection.authenticate();
+            await MySQLDatabaseConnection.authenticate();
             
-            databaseConnection.sync();
+            MySQLDatabaseConnection.sync();
             
             console.log("Successfully connected to db");
         } catch(err) {
