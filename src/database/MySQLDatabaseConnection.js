@@ -1,5 +1,13 @@
 const Sequelize = require("sequelize");
 
+// Dotenv before that
+const dotenv = require("dotenv");
+
+// Setup dotenv
+dotenv.config({
+    path: ".env"
+});
+
 // Mysql information
 const MYSQL_NAME = process.env.DATABASE_NAME ?? process.env.MYSQL_DATABASE_NAME;
 const MYSQL_USERNAME = process.env.DATABASE_USERNAME ?? process.env.MYSQL_USERNAME ?? "root";
