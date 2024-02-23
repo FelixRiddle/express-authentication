@@ -6,6 +6,9 @@ const FrontendAuthAPI = require("./src/public/api/auth/FrontendAuthAPI");
 
 const ResetPasswordPrivateKey = require("./src/controllers/env/private/ResetPasswordPrivateKey");
 
+// Database connections
+const MySQLDatabaseConnection = require("./src/database/MySQLDatabaseConnection");
+
 // Email
 const confirmUserEmailWithPrivateKey = require("./src/email/confirmUserEmailWithPrivateKey");
 
@@ -25,6 +28,9 @@ module.exports = {
     FrontendAuthAPI,
     ResetPasswordAPI,
     ResetPasswordPrivateKey,
+    
+    // Database connections/connectors
+    MySQLDatabaseConnection,
     
     // E-Mail
     confirmUserEmailWithPrivateKey,
