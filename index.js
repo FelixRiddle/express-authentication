@@ -8,6 +8,7 @@ const ResetPasswordPrivateKey = require("./src/controllers/env/private/ResetPass
 
 // Database connections
 const MySQLDatabaseConnection = require("./src/database/MySQLDatabaseConnection");
+const MSQLDC_FetchENV = require("./src/database/MSQLDC_FetchENV");
 
 // Email
 const confirmUserEmailWithPrivateKey = require("./src/email/confirmUserEmailWithPrivateKey");
@@ -31,6 +32,7 @@ module.exports = {
     
     // Database connections/connectors
     MySQLDatabaseConnection,
+    MSQLDC_FetchENV,
     
     // E-Mail
     confirmUserEmailWithPrivateKey,
