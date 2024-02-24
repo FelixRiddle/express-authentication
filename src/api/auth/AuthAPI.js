@@ -28,6 +28,18 @@ module.exports = class AuthAPI {
         this.setInstance(this.serverUrl);
     }
     
+    // --- Miscellaneous ---
+    /**
+     * Endpoint scope
+     * 
+     * If the authentication(endpoints) are running at a given scope set this
+     */
+    setEndpointScope(authScope) {
+        this.serverUrl = `${this.serverUrl}/${authScope}`;
+        
+        this.setInstance(this.serverUrl);
+    }
+    
     // --- For easier setup ---
     /**
      * Creates the class and logs in with a random user email to prevent collisions
