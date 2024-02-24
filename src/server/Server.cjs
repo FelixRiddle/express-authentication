@@ -24,6 +24,25 @@ module.exports = class Server {
     }
     
     /**
+     * Start serving requests
+     */
+    serve() {
+        // Open server
+        this.app.listen(process.env.SERVER_PORT, () => {
+            console.log(`Server running at http://${process.env.SERVER_HOST}:${process.env.SERVER_PORT}`);
+        });
+    }
+    
+    /**
+     * Setup all
+     */
+    async setup() {
+        await this.setupMiddleware();
+        
+        this.mountRoutes();
+    }
+    
+    /**
      * Setup private access keys
      * 
      * Mainly for testing, should be disabled on deployment
@@ -65,25 +84,6 @@ module.exports = class Server {
      */
     mountRoutes() {
         this.app.use(getUser, routes);
-    }
-    
-    /**
-     * Start serving requests
-     */
-    serve() {
-        // Open server
-        this.app.listen(process.env.SERVER_PORT, () => {
-            console.log(`Server running at http://${process.env.SERVER_HOST}:${process.env.SERVER_PORT}`);
-        });
-    }
-    
-    /**
-     * Setup all
-     */
-    async setup() {
-        await this.setupMiddleware();
-        
-        this.mountRoutes();
     }
     
     /**

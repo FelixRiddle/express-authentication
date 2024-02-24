@@ -1,6 +1,8 @@
 const axios = require("axios");
 const generator = require("generate-password");
 
+const { BackendServerAccessAPI } = require("backdoor-server-access");
+
 const confirmUserEmailWithPrivateKey = require("../../email/confirmUserEmailWithPrivateKey");
 const serverUrl = require("../../public/web/serverUrl");
 const { envServerUrl } = require("../../controllers/env/env");
@@ -154,6 +156,28 @@ module.exports = class AuthAPI {
         }
     }
     
+    // --- For testing ---
+    /**
+     * Confirm user email with private key
+     */
+    async confirmUserEmailWithPrivateKey() {
+        // TODO: Available on the same server
+        const backdoorServerUrl = process.env.BACKDOOR_SERVER_ACCESS_URL;
+        if(!backdoorServerUrl) throw Error("You have to set 'BACKDOOR_SERVER_ACCESS_URL'");
+        
+        const api = new BackendServerAccessAPI();
+        api.setUrl(backdoorServerUrl);
+        const key = await api.emailConfirmationKey();
+        
+        const res = await this.instance.post("/auth/email", { key, ...this.userData })
+            .then((res) => res)
+            .catch(err => {
+                console.error(err);
+            });
+        
+        return res.data;
+    }
+    
     // --- Operations ---
     /**
      * Register user
@@ -224,10 +248,7 @@ module.exports = class AuthAPI {
             console.log(`Complete url: ${fullUrl}`);
         }
         
-        const res = await this.instance.post(endpoint, {
-            email: this.userData.email,
-            password: this.userData.password,
-        })
+        const res = await this.instance.post(endpoint, this.userData)
             .then((res) => res)
             .catch((err) => {
                 console.log(`Couldn't get JWT token`);
@@ -239,80 +260,5 @@ module.exports = class AuthAPI {
         this.updateLoggedIn(res);
         
         return res.data;
-    }
-    
-    /**
-     * Delete user
-     */
-    async deleteUser() {
-        const endpoint = "/user/delete";
-        if(this.debug) {
-            const fullUrl = `${this.serverUrl}${endpoint}`;
-            console.log(`Complete url: ${fullUrl}`);
-        }
-        
-        const res = await this.instance.post(endpoint, this.userData)
-            .then((res) => res)
-            .catch((err) => {
-                console.error(err);
-                return;
-            });
-        
-        return res.data;
-    }
-    
-    // --- Email ---
-    /**
-     * Send email to reset password
-     * 
-     * The reset password process can't be done without this step, to ensure the user and
-     * email exists and the user owns that email.
-     */
-    async enableResetPassword() {
-        const endpoint = "/user/password/reset";
-        if(this.debug) {
-            const fullUrl = `${this.serverUrl}${endpoint}`;
-            console.log(`Complete url: ${fullUrl}`);
-        }
-        
-        const res = await this.instance.post(endpoint, {
-            email: this.userData.email,
-        })
-            .then((res) => res.data)
-            .catch((err) => {
-                console.error(err);
-                return;
-            });
-        
-        return res;
-    }
-    
-    /**
-     * Create new passsword
-     * 
-     * Second step of resetting password, with this step the user sets the new password.
-     * 
-     * @param {string} token Token to reset the password
-     * @param {string} password 
-     * @param {string} confirmPassword 
-     */
-    async createNewPassword(token, password, confirmPassword) {
-        const endpoint = `/user/password/create/${token}`;
-        if(this.debug) {
-            const fullUrl = `${this.serverUrl}${endpoint}`;
-            console.log(`Complete url: ${fullUrl}`);
-        }
-        
-        const res = await this.instance.post(endpoint, {
-            password,
-            confirmPassword
-        })
-            .then((res) => res.data)
-            .catch((err) => {
-                console.error(err);
-                return;
-            });
-        
-        return res;
     }
 }

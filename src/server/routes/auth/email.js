@@ -1,16 +1,8 @@
-// import express from "express";
-// import User from "../../models/User.js";
-// import { serverUrl } from "../../controllers/env/env.js";
-// import { emailConfirmationPrivateKey, setConfirmationEmailPrivateKey } from "../../controllers/env/privateKeys.js";
-// import ConfirmationEmailPrivateKey from "../../controllers/env/private/ConfirmationEmailPrivateKey.js";
 const express = require("express");
 
+const { BackendServerAccessAPI } = require("backdoor-server-access");
+
 const User = require("../../../model/User");
-const {
-    // emailConfirmationPrivateKey,
-    setConfirmationEmailPrivateKey
- } = require("../../../controllers/env/privateKeys");
- const ConfirmationEmailPrivateKey = require("../../../controllers/env/private/ConfirmationEmailPrivateKey");
 
 const emailRouter = express.Router();
 
@@ -32,9 +24,10 @@ emailRouter.post("/email", async(req, res) => {
             });
         }
         
-        // Fetch key from the json file
-        const backdoorEmailConfirmation = new ConfirmationEmailPrivateKey();
-        const key = backdoorEmailConfirmation.loadLocally();
+        // Check if keys match
+        const api = new BackendServerAccessAPI();
+        api.setUrl(process.env.BACKDOOR_SERVER_ACCESS_URL);
+        const key = await api.emailConfirmationKey();
         
         // Check that it matches
         const keysMatch = privateKey === key;
@@ -44,9 +37,6 @@ emailRouter.post("/email", async(req, res) => {
             return res.send({
                 emailConfirmed: false,
             });
-        } else {
-            // Keys match, now change key just in case
-            setConfirmationEmailPrivateKey();
         }
         
         // Get user email
