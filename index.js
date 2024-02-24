@@ -1,10 +1,9 @@
 const LoginEndpointValidation = require("./src/api/auth/LoginEndpointValidation");
 const AuthAPI = require("./src/api/auth/AuthAPI");
-const ResetPasswordAPI = require("./src/api/auth/ResetPasswordAPI");
-
 const FrontendAuthAPI = require("./src/public/api/auth/FrontendAuthAPI");
-
+const ResetPasswordAPI = require("./src/api/auth/ResetPasswordAPI");
 const ResetPasswordPrivateKey = require("./src/controllers/env/private/ResetPasswordPrivateKey");
+const UserAPI = require("./src/api/secure/UserAPI");
 
 // Database connections
 const MySQLDatabaseConnection = require("./src/database/MySQLDatabaseConnection");
@@ -29,6 +28,7 @@ module.exports = {
     FrontendAuthAPI,
     ResetPasswordAPI,
     ResetPasswordPrivateKey,
+    UserAPI,
     
     // Database connections/connectors
     MySQLDatabaseConnection,
