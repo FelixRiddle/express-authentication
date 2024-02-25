@@ -81,9 +81,6 @@ registerRouter.post("/register", async (req, res) => {
                 email,
                 token: user.token,
             });
-            console.log(`Send confirmation email.`);
-        } else {
-            console.log(`Do not send confirmation email.`);
         }
         
         // Show confirmation message

@@ -19,8 +19,8 @@ const resetRouter = express.Router();
  * 2) Validate user exists
  * 3) Send reset password email
  */
-resetRouter.post("/reset", async (req, res) => {
-    console.log(`POST /auth/password/reset`);
+resetRouter.post("/send_reset_email", async (req, res) => {
+    console.log(`POST /auth/password/send_reset_email`);
     
     try {
         // Validation
@@ -75,12 +75,8 @@ resetRouter.post("/reset", async (req, res) => {
                 email,
                 token: user.token,
             });
-            console.log(`Send confirmation email.`);
-        } else {
-            console.log(`Do not send confirmation email.`);
         }
         
-        // TODO: Show confirmation message
         return res.send({
             resetEmailSent: true,
         });

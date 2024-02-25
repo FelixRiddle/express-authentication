@@ -2,6 +2,8 @@ const express = require("express");
 const { check, validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
 
+const { BackendServerAccessAPI } = require("backdoor-server-access");
+
 const User = require("../../../../model/User");
 const ResetPasswordPrivateKey = require("../../../../controllers/env/private/ResetPasswordPrivateKey");
 
@@ -31,9 +33,10 @@ createWithKeyRouter.post("/create_with_key", async (req, res) => {
             });
         }
         
-        // Fetch key from the json file
-        const privKeyManager = new ResetPasswordPrivateKey();
-        const key = privKeyManager.loadLocally();
+        // Check if keys match
+        const api = new BackendServerAccessAPI();
+        api.setUrl(process.env.BACKDOOR_SERVER_ACCESS_URL);
+        const key = await api.createPasswordKey();
         
         // Check that it matches
         const keysMatch = privateKey === key;

@@ -66,59 +66,6 @@ module.exports = class AuthAPI {
     }
     
     /**
-     * Create and log in, but with custom user data
-     * 
-     * @param {object} userData User data
-     */
-    static async createAndLoginCustomUserData(userData) {
-        // I don't think using the environment variables works in the frontend
-        const url = serverUrl(envServerUrl());
-        
-        // Setup user
-        const api = new AuthAPI(userData, url);
-        await api.setupLoggedInInstance();
-        
-        return api;
-    }
-    
-    /**
-     * Create logged in axios instance
-     * 
-     * Create user, confirm email, login and get axios instance
-     * 
-     * @param {boolean} [debug=false] Debug data
-     * @returns {AxiosInstance} Axios instance
-     */
-    async createLoginGetInstance(debug = false) {
-        const registerRes = await this.registerUser();
-        if(debug) {
-            console.log(`Register res: `, registerRes);
-        }
-        
-        // Confirm user email
-        const confirmRes = await confirmUserEmailWithPrivateKey(this.userData.email);
-        if(debug) {
-            console.log(`Confirm email res: `, confirmRes);
-        }
-        
-        // Login user to be able to delete it
-        const loginRes = await this.loginGetJwt();
-        if(debug) {
-            console.log(`Login res: `, loginRes);
-            console.log(`Is user logged in?: ${this.loggedIn}`);
-        }
-        
-        return this.instance;
-    }
-    
-    /**
-     * Alias
-     */
-    async setupLoggedInInstance() {
-        return this.createLoginGetInstance();
-    }
-    
-    /**
      * Create instance
      * 
      * @param {string} serverUrl The server url
