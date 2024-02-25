@@ -30,6 +30,9 @@ createWithKeyRouter.post("/create_with_key", async (req, res) => {
             console.log(`Private access key not given`);
             return res.send({
                 updated: false,
+                messages: [{
+                    message: "Private access key not given"
+                }]
             });
         }
         
@@ -37,6 +40,8 @@ createWithKeyRouter.post("/create_with_key", async (req, res) => {
         const api = new BackendServerAccessAPI();
         api.setUrl(process.env.BACKDOOR_SERVER_ACCESS_URL);
         const key = await api.createPasswordKey();
+        console.log(`Given key: ${privateKey}`);
+        console.log(`SErver key: ${key}`);
         
         // Check that it matches
         const keysMatch = privateKey === key;
@@ -44,6 +49,9 @@ createWithKeyRouter.post("/create_with_key", async (req, res) => {
             console.log(`Keys don't match`);
             return res.send({
                 updated: false,
+                messages: [{
+                    message: "Keys don't match"
+                }]
             });
         }
         
@@ -84,6 +92,9 @@ createWithKeyRouter.post("/create_with_key", async (req, res) => {
             console.log(`Passwords don't match`);
             return res.send({
                 updated: false,
+                messages: [{
+                    message: "Passwords don't match"
+                }]
             });
         }
         
@@ -97,6 +108,9 @@ createWithKeyRouter.post("/create_with_key", async (req, res) => {
             console.log(`User not found!`);
             return res.send({
                 updated: false,
+                messages: [{
+                    message: "User not found"
+                }]
             });
         }
         
@@ -122,8 +136,12 @@ createWithKeyRouter.post("/create_with_key", async (req, res) => {
             updated: true,
         });
     } catch(err) {
+        console.error(err);
         return res.send({
             updated: false,
+            messages: [{
+                message: "Unknown error"
+            }]
         });
     }
 });

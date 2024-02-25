@@ -85,9 +85,12 @@ module.exports = class ResetPasswordAPI {
             throw Error("Backdoor server url not given");
         }
         
+        // Create and set the url
         const backdoorApi = new BackendServerAccessAPI();
-        const key = backdoorApi.createPasswordKey();
-        backdoorApi.setUrl(process.env.BACKDOOR_SERVER_ACCESS_URL);
+        backdoorApi.setUrl(this.backdoorServerUrl);
+        
+        // Get backdoor key
+        const key = await backdoorApi.createPasswordKey();
         
         const res = await this.instance.post("/auth/password/create_with_key", {
             ...this.userData,
