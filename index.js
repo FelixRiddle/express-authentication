@@ -1,8 +1,8 @@
 const LoginEndpointValidation = require("./src/api/auth/LoginEndpointValidation");
 const AuthAPI = require("./src/api/auth/AuthAPI");
 const FrontendAuthAPI = require("./src/public/api/auth/FrontendAuthAPI");
-const ResetPasswordAPI = require("./src/api/auth/ResetPasswordAPI");
 const ResetPasswordPrivateKey = require("./src/controllers/env/private/ResetPasswordPrivateKey");
+const ResetPasswordAPI = require("./src/api/auth/password/ResetPasswordAPI");
 const UserAPI = require("./src/api/secure/UserAPI");
 
 // Database connections
