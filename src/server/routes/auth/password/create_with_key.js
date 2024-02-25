@@ -5,7 +5,6 @@ const bcrypt = require("bcrypt");
 const { BackendServerAccessAPI } = require("backdoor-server-access");
 
 const User = require("../../../../model/User");
-const ResetPasswordPrivateKey = require("../../../../controllers/env/private/ResetPasswordPrivateKey");
 
 const createWithKeyRouter = express.Router();
 
@@ -117,10 +116,7 @@ createWithKeyRouter.post("/create_with_key", async (req, res) => {
         // Hash password
         const { password } = req.body;
         const salt = await bcrypt.genSalt(10);
-        user.password = await bcrypt.hash(
-            password,
-            salt
-        );
+        user.password = await bcrypt.hash(password, salt);
         
         // Remove the token
         user.token = "";
