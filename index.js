@@ -8,9 +8,6 @@ const UserAPI = require("./src/api/secure/UserAPI");
 const MySQLDatabaseConnection = require("./src/database/MySQLDatabaseConnection");
 const MSQLDC_FetchENV = require("./src/database/MSQLDC_FetchENV");
 
-// Email
-const confirmUserEmailWithPrivateKey = require("./src/email/confirmUserEmailWithPrivateKey");
-
 // Env
 const env = require("./src/controllers/env/env");
 
@@ -34,9 +31,6 @@ module.exports = {
     // Database connections/connectors
     MySQLDatabaseConnection,
     MSQLDC_FetchENV,
-    
-    // E-Mail
-    confirmUserEmailWithPrivateKey,
     
     // Env
     env,
