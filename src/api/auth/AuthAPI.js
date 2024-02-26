@@ -3,9 +3,7 @@ const generator = require("generate-password");
 
 const { BackendServerAccessAPI } = require("backdoor-server-access");
 
-const confirmUserEmailWithPrivateKey = require("../../email/confirmUserEmailWithPrivateKey");
 const serverUrl = require("../../public/web/serverUrl");
-const { envServerUrl } = require("../../controllers/env/env");
 
 module.exports = class AuthAPI {
     loggedIn = false;

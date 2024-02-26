@@ -5,9 +5,6 @@ const express = require('express');
 const getUser = require("../middleware/auth/getUser");
 const routes = require("./routes/index")
 const { createPublicUserFolder } = require("../user/userFolder");
-const ConfirmationEmailPrivateKey = require('../controllers/env/private/ConfirmationEmailPrivateKey');
-const ResetPasswordPrivateKey = require('../controllers/env/private/ResetPasswordPrivateKey');
-// const MySQLDatabaseConnection = require("../database/MySQLDatabaseConnection");
 const MYSQLDC_FetchENV = require("../database/MSQLDC_FetchENV");
 
 /**
@@ -19,8 +16,6 @@ module.exports = class Server {
         this.app = app;
         
         this.createDirectories();
-        
-        this.setupPrivateAccessKeys();
     }
     
     /**
@@ -40,35 +35,6 @@ module.exports = class Server {
         await this.setupMiddleware();
         
         this.mountRoutes();
-    }
-    
-    /**
-     * Setup private access keys
-     * 
-     * Mainly for testing, should be disabled on deployment
-     */
-    setupPrivateAccessKeys() {
-        // --- Email private key ---
-        // Key for accessing a single endpoint to confirm the email
-        // Setup the env var first
-        const emailPrivKey = new ConfirmationEmailPrivateKey();
-        emailPrivKey.setConfirmationEmailPrivateKey();
-        
-        // Now handle saving the file so that the testing framework can access it
-        const fileExists = emailPrivKey.fileExists();
-        if(!fileExists) {
-            // The file doesn't exists?, create it.
-            emailPrivKey.saveLocally();
-        }
-        
-        // --- Reset password private key ---
-        const resetPassPrivKey = new ResetPasswordPrivateKey();
-        resetPassPrivKey.setPrivateKey();
-        
-        const fileExistsA = resetPassPrivKey.fileExists();
-        if(!fileExistsA) {
-            resetPassPrivKey.saveLocally();
-        }
     }
     
     /**

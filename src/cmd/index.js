@@ -1,10 +1,6 @@
 const { ArgumentParser } = require("argparse");
 
 const serverMain = require("./server/index");
-const testRegister = require("./testRegister");
-
-const packageJson = require("../../package.json");
-const version = packageJson.version;
 
 const parser = new ArgumentParser({
     description: "Argparse example"
@@ -57,7 +53,7 @@ module.exports = async function executeCommands() {
     
     await serverMain(args);
     
-    await testRegister(args);
+    // await testRegister(args);
     
     // process.exit(0);
 };

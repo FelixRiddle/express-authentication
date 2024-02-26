@@ -1,7 +1,6 @@
 const LoginEndpointValidation = require("./src/api/auth/LoginEndpointValidation");
 const AuthAPI = require("./src/api/auth/AuthAPI");
 const FrontendAuthAPI = require("./src/public/api/auth/FrontendAuthAPI");
-const ResetPasswordPrivateKey = require("./src/controllers/env/private/ResetPasswordPrivateKey");
 const ResetPasswordAPI = require("./src/api/auth/password/ResetPasswordAPI");
 const UserAPI = require("./src/api/secure/UserAPI");
 
@@ -11,6 +10,9 @@ const MSQLDC_FetchENV = require("./src/database/MSQLDC_FetchENV");
 
 // Email
 const confirmUserEmailWithPrivateKey = require("./src/email/confirmUserEmailWithPrivateKey");
+
+// Env
+const env = require("./src/controllers/env/env");
 
 // Models
 const User = require("./src/model/User");
@@ -27,7 +29,6 @@ module.exports = {
     LoginEndpointValidation,
     FrontendAuthAPI,
     ResetPasswordAPI,
-    ResetPasswordPrivateKey,
     UserAPI,
     
     // Database connections/connectors
@@ -36,6 +37,10 @@ module.exports = {
     
     // E-Mail
     confirmUserEmailWithPrivateKey,
+    
+    // Env
+    env,
+    envServerUrl: env.envServerUrl,
     
     // Models
     User,
