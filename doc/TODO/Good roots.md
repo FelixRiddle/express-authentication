@@ -2,6 +2,6 @@
 
 I'll consider this project complete when I can use it with 'good-roots' app, and any other app that requires authentication.
 
-- [ ] Usable for good roots
-- [ ] Usable as a library(for any app)
+- [x] Usable for good roots
+- [x] Usable as a library(for any app)
 

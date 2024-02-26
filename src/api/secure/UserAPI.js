@@ -1,5 +1,10 @@
 const AuthAPI = require('../auth/AuthAPI');
 
+/**
+ * User API
+ * 
+ * To handle protected endpoints
+ */
 module.exports = class UserAPI {
     constructor(debug=false) {
         this.debug = debug;

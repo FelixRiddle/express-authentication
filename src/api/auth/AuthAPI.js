@@ -1,10 +1,17 @@
-const axios = require("axios");
+// const axios = require("axios");
 const generator = require("generate-password");
 
 const { BackendServerAccessAPI } = require("backdoor-server-access");
 
+const UserAPI = require("../secure/UserAPI");
 const serverUrl = require("../../public/web/serverUrl");
+const createAxiosInstance = require("../../public/axios/createAxiosInstance");
 
+/**
+ * Auth API
+ * 
+ * Simplistic abstraction of express authentication endpoints
+ */
 module.exports = class AuthAPI {
     loggedIn = false;
     
@@ -70,35 +77,36 @@ module.exports = class AuthAPI {
      * @param {string} jwtToken JWT Authentication token(optional)
      */
     setInstance(serverUrl, jwtToken = '') {
-        // Location is not defined in nodejs
-        const isUndefined = typeof(location) === 'undefined';
+        this.instance = createAxiosInstance(serverUrl, "", jwtToken);
+        // // Location is not defined in nodejs
+        // const isUndefined = typeof(location) === 'undefined';
         
-        // Create headers
-        let headers = {
-            "Content-Type": "application/json"
-        };
-        if(jwtToken) {
-            // Add jwt token
-            headers["Cookie"] = `_token=${jwtToken}`;
-        }
+        // // Create headers
+        // let headers = {
+        //     "Content-Type": "application/json"
+        // };
+        // if(jwtToken) {
+        //     // Add jwt token
+        //     headers["Cookie"] = `_token=${jwtToken}`;
+        // }
         
-        if(!isUndefined) {
-            this.instance = axios.create({
-                withCredentials: true,
-                baseURL: `${location.origin}`,
-                timeout: 2000,
-                headers,
-            });
-        } else if(!serverUrl) {
-            throw Error("Server url is required when the AuthenticationAPI is used in NodeJS");
-        } else {
-            this.instance = axios.create({
-                withCredentials: true,
-                baseURL: `${serverUrl}`,
-                timeout: 2000,
-                headers,
-            });
-        }
+        // if(!isUndefined) {
+        //     this.instance = axios.create({
+        //         withCredentials: true,
+        //         baseURL: `${location.origin}`,
+        //         timeout: 2000,
+        //         headers,
+        //     });
+        // } else if(!serverUrl) {
+        //     throw Error("Server url is required when the AuthenticationAPI is used in NodeJS");
+        // } else {
+        //     this.instance = axios.create({
+        //         withCredentials: true,
+        //         baseURL: `${serverUrl}`,
+        //         timeout: 2000,
+        //         headers,
+        //     });
+        // }
     }
     
     // --- For testing ---
@@ -148,12 +156,16 @@ module.exports = class AuthAPI {
     /**
      * Update logged in
      * 
+     * Private facilitation function
+     * 
      * @param {Object} res Axios response object
      */
-    updateLoggedIn(res) {
+    #updateLoggedIn(res) {
         this.setInstance(this.serverUrl, res.data.token);
         
         this.loggedIn = true;
+        
+        return this;
     }
     
     /**
@@ -176,7 +188,7 @@ module.exports = class AuthAPI {
             });
         
         // Update logged in status
-        this.updateLoggedIn(res);
+        this.#updateLoggedIn(res);
         
         return res.data;
     }
@@ -202,8 +214,20 @@ module.exports = class AuthAPI {
             });
         
         // Update logged in status
-        this.updateLoggedIn(res);
+        this.#updateLoggedIn(res);
         
         return res.data;
+    }
+    
+    // --- Conversions ---
+    /**
+     * User API
+     * 
+     * @returns {UserAPI} 
+     */
+    userApi() {
+        const api = UserAPI.fromAuthenticatedAPI(this);
+        
+        return api;
     }
 }
