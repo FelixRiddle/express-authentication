@@ -25,9 +25,6 @@ module.exports = {
     env,
     envServerUrl: env.envServerUrl,
     
-    // Models
-    User,
-    
     // Routes
     libUserRouter,
     
