@@ -18,6 +18,7 @@ registerRouter.post("/register", async (req, res) => {
         // Check that passwords match
         let expanded = expand(req);
         if(req.body.password != req.body.confirmPassword) {
+            console.log(`Passwords don't match`);
             return res.send({
                 // Expanded data
                 ...req.body,
@@ -35,6 +36,7 @@ registerRouter.post("/register", async (req, res) => {
         // Validate data
         let val = validateRegister(req.body);
         if(val.length > 0) {
+            console.log(`Didn't pass validation`);
             return res.send({
                 // Expanded data
                 ...req.body,
@@ -51,8 +53,11 @@ registerRouter.post("/register", async (req, res) => {
         let { name, email, password } = req.body;
         
         // Verify that the user is not duplicated
-        const userExists = await User.findOne({ where: { email } });
+        const userModel = new User();
+        const userExists = await userModel.findOne({ where: { email } });
         if(userExists) {
+            console.log(`User found: `, userExists);
+            console.log(`Not creating user`);
             return res.send({
                 // Expanded data
                 ...req.body,
@@ -68,11 +73,12 @@ registerRouter.post("/register", async (req, res) => {
         }
         
         // Create user
-        const user = await User.create({
+        const user = await userModel.create({
             name, email, password,
             token: generateId(),
             confirmedEmail: false,
         });
+        console.log(`User model created`);
         
         // Check if sending email is enabled or not
         if(!isEmailDisabled()) {

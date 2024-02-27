@@ -48,7 +48,8 @@ emailRouter.post("/email", async(req, res) => {
         }
         
         // Verify if the token is correct
-        const user = await User.findOne({
+        const userModel = new User();
+        const user = await userModel.findOne({
             where: {
                 email,
             },

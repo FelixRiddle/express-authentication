@@ -15,7 +15,7 @@ test("Email confirmation backdoor access", async () => {
     // Create user data
     const userData = {
         name: "Alistar",
-        email: `${uuidv4()}@email.com`,
+        email: `alistar_${uuidv4()}@email.com`,
         password: "asd12345",
         confirmPassword: "asd12345"
     };

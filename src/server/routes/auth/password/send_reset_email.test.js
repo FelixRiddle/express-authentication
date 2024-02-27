@@ -1,4 +1,5 @@
 const dotenv = require("dotenv");
+const { v4: uuidv4 } = require("uuid");
 
 const AuthAPI = require("../../../../api/auth/AuthAPI");
 const UserAPI = require("../../../../api/secure/UserAPI");
@@ -19,7 +20,7 @@ test('Reset email sent(Authenticated)', async function() {
     const userPassword = "asd12345";
     const userData = {
         name: "Incorrect password",
-        email: "incorrect_password@email.com",
+        email: `alistar_${uuidv4()}@email.com`,
         password: userPassword,
         confirmPassword: userPassword
     };
@@ -55,7 +56,7 @@ test('Reset email sent', async function() {
     const userPassword = "asd12345";
     const userData = {
         name: "Incorrect password",
-        email: "incorrect_password@email.com",
+        email: `alistar_${uuidv4()}@email.com`,
         password: userPassword,
         confirmPassword: userPassword
     };

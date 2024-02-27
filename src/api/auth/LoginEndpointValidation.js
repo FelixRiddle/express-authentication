@@ -96,7 +96,8 @@ module.exports = class LoginEndpointValidation {
         const { email, password } = this.userData;
         
         // Get the user
-        let user = await User.findOne({
+        const userModel = new User();
+        let user = await userModel.findOne({
             where: {
                 email,
             }

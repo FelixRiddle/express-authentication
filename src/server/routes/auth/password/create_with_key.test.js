@@ -1,9 +1,11 @@
 const dotenv = require("dotenv");
+const { v4: uuidv4 } = require("uuid");
 
 const AuthAPI = require("../../../../api/auth/AuthAPI");
 const UserAPI = require("../../../../api/secure/UserAPI");
 const { envServerUrl } = require("../../../../controllers/env/env");
 const ResetPasswordAPI = require("../../../../api/auth/password/ResetPasswordAPI");
+const { registerEmail } = require("../../../../helpers/emails");
 
 /**
  * Send reset email without authentication
@@ -17,9 +19,10 @@ test('Create new password', async function() {
     const url = envServerUrl();
     
     const userPassword = "asd12345";
+    const email = `alistar_${uuidv4()}@email.com`;
     const userData = {
         name: "Incorrect password",
-        email: "incorrect_password@email.com",
+        email,
         password: userPassword,
         confirmPassword: userPassword
     };
@@ -34,7 +37,7 @@ test('Create new password', async function() {
     const newPassword = "adfasdfjasfj3io2j3";
     const newUserData = {
         name: "Incorrect password",
-        email: "incorrect_password@email.com",
+        email,
         password: newPassword,
         confirmPassword: newPassword
     };

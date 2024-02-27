@@ -56,7 +56,8 @@ createRouter.post("/create/:token", async (req, res) => {
         }
         
         // If the user was found, then it's correct
-        const user = await User.findOne({
+        const userModel = new User();
+        const user = await userModel.findOne({
             where: {
                 token
             }

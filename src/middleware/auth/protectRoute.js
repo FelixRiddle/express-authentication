@@ -39,7 +39,8 @@ const protectRoute = async (req, res, next) =>  {
         let decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
         
         // Validate user
-        const user = await User.scope("deletePassword").findByPk(decoded.id);
+        const userModel = new User();
+        const user = await userModel.scope("deletePassword").findByPk(decoded.id);
         
         // Store user on the request
         if(user) {
