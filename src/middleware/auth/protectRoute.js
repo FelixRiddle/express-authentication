@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 
-const User = require("../../model/User");
+const { User } = require("app-models");
+
 const { envServerUrl } = require("../../controllers/env/env");
 const serverUrl = require("../../public/web/serverUrl.js");
 

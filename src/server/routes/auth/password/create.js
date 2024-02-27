@@ -2,7 +2,7 @@ const { check, validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
 const express = require("express");
 
-const User = require("../../../../model/User");
+const { User } = require("app-models");
 
 // When resetting the password
 const createRouter = express.Router();

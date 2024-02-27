@@ -1,8 +1,7 @@
 const express = require("express");
 
 const { BackendServerAccessAPI } = require("backdoor-server-access");
-
-const User = require("../../../model/User");
+const { User } = require("app-models");
 
 const emailRouter = express.Router();
 

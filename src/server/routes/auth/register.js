@@ -1,8 +1,9 @@
 const express = require("express");
 
+const { User } = require("app-models");
+
 const { registerEmail } = require("../../../helpers/emails");
 const { generateId } = require("../../../helpers/tokens");
-const User = require("../../../model/User");
 const expand = require("../../../controllers/expand");
 const validateRegister = require("../../../public/validation/validateRegister");
 const { isEmailDisabled } = require("../../../controllers/env/env");

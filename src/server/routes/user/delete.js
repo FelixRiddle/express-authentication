@@ -1,6 +1,7 @@
 const express = require("express");
 
-const User = require("../../../model/User.js");
+const { User } = require("app-models");
+
 const protectRoute = require("../../../middleware/auth/protectRoute.js");
 
 const deleteRouter = express.Router();

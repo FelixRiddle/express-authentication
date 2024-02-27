@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 
 const { BackendServerAccessAPI } = require("backdoor-server-access");
 
-const User = require("../../../../model/User");
+const { User } = require("app-models");
 
 const createWithKeyRouter = express.Router();
 

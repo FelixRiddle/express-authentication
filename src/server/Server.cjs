@@ -2,10 +2,11 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const express = require('express');
 
+const { MSQLDC_FetchENV } = require("app-models");
+
 const getUser = require("../middleware/auth/getUser");
 const routes = require("./routes/index")
 const { createPublicUserFolder } = require("../user/userFolder");
-const MYSQLDC_FetchENV = require("../database/MSQLDC_FetchENV");
 
 /**
  * Server
@@ -144,7 +145,7 @@ module.exports = class Server {
         
         // Connect to db
         try {
-            const mysqlConn = MYSQLDC_FetchENV();
+            const mysqlConn = MSQLDC_FetchENV();
             
             await mysqlConn.authenticate();
             

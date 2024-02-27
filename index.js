@@ -4,15 +4,8 @@ const FrontendAuthAPI = require("./src/public/api/auth/FrontendAuthAPI");
 const ResetPasswordAPI = require("./src/api/auth/password/ResetPasswordAPI");
 const UserAPI = require("./src/api/secure/UserAPI");
 
-// Database connections
-const MySQLDatabaseConnection = require("./src/database/MySQLDatabaseConnection");
-const MSQLDC_FetchENV = require("./src/database/MSQLDC_FetchENV");
-
 // Env
 const env = require("./src/controllers/env/env");
-
-// Models
-const User = require("./src/model/User");
 
 const { libUserRouter } = require("./src/server/routes");
 
@@ -27,10 +20,6 @@ module.exports = {
     FrontendAuthAPI,
     ResetPasswordAPI,
     UserAPI,
-    
-    // Database connections/connectors
-    MySQLDatabaseConnection,
-    MSQLDC_FetchENV,
     
     // Env
     env,

@@ -5,7 +5,7 @@
  */
 const jwt = require("jsonwebtoken");
 
-const User = require("../../model/User.js");
+const { User, } = require("app-models");
 
 const GET_USER_DEBUG = false;
 
