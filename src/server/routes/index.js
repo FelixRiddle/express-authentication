@@ -1,8 +1,10 @@
 const express = require("express");
 
-const userRoutes = require("./user/index");
 const protectRoute = require("../../middleware/auth/protectRoute")
+
 const authRoutes = require("./auth/index");
+const middlewareRouter = require("./middleware/index");
+const userRoutes = require("./user/index");
 
 const routes = express.Router();
 
@@ -11,6 +13,8 @@ routes.use("/auth", authRoutes);
 
 // Protected routes
 routes.use("/user", protectRoute, userRoutes);
+
+routes.use("/middleware", middlewareRouter);
 
 // Access through public alias
 // This prevents route protection like /user

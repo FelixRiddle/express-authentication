@@ -42,7 +42,7 @@ module.exports = class UserAPI {
         api.instance = createAxiosInstance(url, "", token);
         
         // Get data
-        api.userData = authApi.userData;
+        api.userData = api.data();
         
         return api;
     }
