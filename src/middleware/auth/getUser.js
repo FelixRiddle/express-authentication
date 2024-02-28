@@ -9,7 +9,14 @@ const { User, } = require("app-models");
 
 const GET_USER_DEBUG = false;
 
-// Get user
+/**
+ * Get user optionally
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ * @returns 
+ */
 const getUser = async (req, res, next) =>  {
     // Validate token
     try {

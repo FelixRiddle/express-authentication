@@ -31,7 +31,7 @@ module.exports = class UserAPI {
      * Create UserAPI instance from a jwt token
      * 
      */
-    static fromJWT(token, debug=false) {
+    static async fromJWT(token, debug=false) {
         const api = new UserAPI(debug);
         
         // Url
@@ -42,7 +42,7 @@ module.exports = class UserAPI {
         api.instance = createAxiosInstance(url, "", token);
         
         // Get data
-        api.userData = api.data();
+        api.userData = await api.data();
         
         return api;
     }

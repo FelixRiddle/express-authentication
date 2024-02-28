@@ -13,7 +13,6 @@ routes.use("/auth", authRoutes);
 
 // Protected routes
 routes.use("/user", protectRoute, userRoutes);
-
 routes.use("/middleware", middlewareRouter);
 
 // Access through public alias

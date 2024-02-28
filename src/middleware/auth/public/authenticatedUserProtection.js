@@ -1,5 +1,4 @@
-const { User } = require("app-models");
-const UserAPI = require("../../../api/secure/userAPI");
+const UserAPI = require("../../../api/secure/UserAPI");
 
 const PROTECT_ROUTE_DEBUG = true;
 
@@ -38,18 +37,11 @@ const authenticatedUserProtection = async (req, res, next) =>  {
         }
         
         // Fetch the user
-        const api = new UserAPI();
-        
-        // // Validate token
-        // // Verify user
-        // const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
-        
-        // // Validate user
-        // const userModel = new User();
-        // const user = await userModel.scope("deletePassword").findByPk(decoded.id);
+        const userApi = await UserAPI.fromJWT(token);
+        const user = userApi.userData;
         
         // Store user on the request
-        if(user) {
+        if(user && user.email) {
             req.user = user;
         } else {
             if(PROTECT_ROUTE_DEBUG) {
