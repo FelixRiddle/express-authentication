@@ -3,9 +3,8 @@
  * 
  * Different from protectRoute, because in this middleware the user is optional.
  */
-const jwt = require("jsonwebtoken");
-
 const { User, } = require("app-models");
+const UserAPI = require("../../../api/secure/UserAPI");
 
 const GET_USER_DEBUG = false;
 
@@ -19,10 +18,12 @@ const publicGetUser = async (req, res, next) =>  {
         
         if(token) {
             // Verify user
-            let decoded = undefined;
+            let userData = undefined;
             try {
-                const jwtData = jwt.verify(token, process.env.JWT_SECRET_KEY);
-                decoded = jwtData;
+                // const jwtData = jwt.verify(token, process.env.JWT_SECRET_KEY);
+                // decoded = jwtData;
+                const userApi = await UserAPI.fromJWT(token);
+                userData = userApi.userData;
             } catch(err) {
                 if(GET_USER_DEBUG) {
                     console.log(`The token couldn't be verified, maybe it has expired!`);
@@ -31,7 +32,7 @@ const publicGetUser = async (req, res, next) =>  {
             
             // Validate user
             const userModel = new User();
-            const user = await userModel.scope("deletePassword").findByPk(decoded.id);
+            const user = await userModel.scope("deletePassword").findByPk(userData.id);
             
             // Store user on the request
             if(user) {

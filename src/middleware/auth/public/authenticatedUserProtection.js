@@ -40,6 +40,9 @@ const authenticatedUserProtection = async (req, res, next) =>  {
         const userApi = await UserAPI.fromJWT(token);
         const user = userApi.userData;
         
+        // Validate that the user exists
+        // The token should be decoded and the user validated before even validating the signature
+        
         // Store user on the request
         if(user && user.email) {
             req.user = user;
