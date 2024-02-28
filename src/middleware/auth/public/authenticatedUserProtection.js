@@ -1,21 +1,23 @@
-const jwt = require("jsonwebtoken");
-
 const { User } = require("app-models");
+const UserAPI = require("../../../api/secure/userAPI");
 
 const PROTECT_ROUTE_DEBUG = true;
 
 /**
- * Protect route
+ * Authenticated user protection
  * 
  * Protect route the only thing it does is to verify that a user is logged in, it doesn't have any
  * role checking, admin checking or security clearance checking.
+ * 
+ * Rules:
+ * 1) This is supposed to be executed on other apps, so we can't use jwt.verify
  * 
  * @param {*} req 
  * @param {*} res 
  * @param {*} next 
  * @returns 
  */
-const protectRoute = async (req, res, next) =>  {
+const authenticatedUserProtection = async (req, res, next) =>  {
     try {
         // Check token
         // Get and rename token
@@ -35,13 +37,16 @@ const protectRoute = async (req, res, next) =>  {
             });
         }
         
-        // Validate token
-        // Verify user
-        const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+        // Fetch the user
+        const api = new UserAPI();
         
-        // Validate user
-        const userModel = new User();
-        const user = await userModel.scope("deletePassword").findByPk(decoded.id);
+        // // Validate token
+        // // Verify user
+        // const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+        
+        // // Validate user
+        // const userModel = new User();
+        // const user = await userModel.scope("deletePassword").findByPk(decoded.id);
         
         // Store user on the request
         if(user) {
@@ -75,4 +80,4 @@ const protectRoute = async (req, res, next) =>  {
     }
 }
 
-module.exports = protectRoute;
+module.exports = authenticatedUserProtection;

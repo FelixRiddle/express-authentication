@@ -1,4 +1,6 @@
 const AuthAPI = require('../auth/AuthAPI');
+const { AUTHENTICATION } = require("../../mappings/env/SERVER_URL_MAPPINGS");
+const createAxiosInstance = require("../../public/axios/createAxiosInstance");
 
 /**
  * User API
@@ -10,6 +12,8 @@ module.exports = class UserAPI {
         this.debug = debug;
     }
     
+    // --- Constructors ---
+    // Other kind of constructors that I see more suitable than the main
     /**
      * 
      * @param {AuthAPI} authApi 
@@ -23,6 +27,48 @@ module.exports = class UserAPI {
         return api;
     }
     
+    /**
+     * Create UserAPI instance from a jwt token
+     * 
+     */
+    static fromJWT(token, debug=false) {
+        const api = new UserAPI(debug);
+        
+        // Url
+        const url = AUTHENTICATION;
+        api.serverUrl = url;
+        
+        // Create instance
+        api.instance = createAxiosInstance(url, "", token);
+        
+        // Get data
+        api.userData = authApi.userData;
+        
+        return api;
+    }
+    
+    // --- User data ---
+    /**
+     * Get user data
+     */
+    async data() {
+        const endpoint = "/user/data";
+        if(this.debug) {
+            const fullUrl = `${this.serverUrl}${endpoint}`;
+            console.log(`Complete url: ${fullUrl}`);
+        }
+        
+        const res = await this.instance.get(endpoint)
+            .then((res) => res)
+            .catch((err) => {
+                console.error(err);
+                return;
+            });
+        
+        return res.data;
+    }
+    
+    // --- User operations ---
     /**
      * Delete user
      */

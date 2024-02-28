@@ -1,10 +1,11 @@
 const express = require("express");
 
+const dataRouter = require("./data");
 const deleteRouter = require("./delete.js");
 
 const userRoutes = express.Router();
 
-// Insert other routers
+userRoutes.use(dataRouter);
 userRoutes.use(deleteRouter);
 
 module.exports = userRoutes;
