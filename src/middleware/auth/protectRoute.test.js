@@ -49,7 +49,7 @@ test("Route accessed", async () => {
         const loginRes = await api.loginGetJwt();
         const axiosInstance = createAxiosInstance(ENV_SERVER_URL, "", loginRes.token);
         userDataFetch = await axiosInstance.get("/user/data")
-            .then((res) => res.data);
+            .then((res) => res.data.user);
         
         // Login and delete
         const userApi = UserAPI.fromAuthenticatedAPI(api);
@@ -100,7 +100,7 @@ test("Couldn't access protected route without logging in", async () => {
     try {
         const axiosInstance = createAxiosInstance(ENV_SERVER_URL);
         userDataFetch = await axiosInstance.get("/user/data")
-            .then((res) => res.data);
+            .then((res) => res.data.user);
         
         // Login and delete
         await api.loginGetJwt();

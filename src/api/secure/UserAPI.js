@@ -42,7 +42,8 @@ module.exports = class UserAPI {
         api.instance = createAxiosInstance(url, "", token);
         
         // Get data
-        api.userData = await api.data();
+        const userDataRes = await api.data();
+        api.userData = userDataRes.user;
         
         return api;
     }

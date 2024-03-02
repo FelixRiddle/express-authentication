@@ -40,10 +40,14 @@ test("Fetch user data", async () => {
     const userApi = UserAPI.fromAuthenticatedAPI(api);
     
     // Fetch user data
-    const userDataFetch = await userApi.data();
+    const fetchDataRes = await userApi.data();
+    const serverUserData = fetchDataRes.user;
     
     await userApi.delete();
     
+    const resEmail = serverUserData.email;
+    const emailsMatch = resEmail == email;
+    
     // Check that emails match
-    expect(userDataFetch.email).toBe(email);
+    expect(emailsMatch).toBe(true);
 });

@@ -41,11 +41,18 @@ const protectRoute = async (req, res, next) =>  {
         
         // Validate user
         const userModel = new User();
-        const user = await userModel.scope("deletePassword").findByPk(decoded.id);
+        const user = await userModel.scope("deletePassword").findOne({
+            where: {
+                id: decoded.id,
+            },
+            raw: true,
+        });
+        // console.log(`User from the scope: `, user);
         
         // Store user on the request
         if(user) {
             req.user = user;
+            // console.log(`Stored user in req.user: `, req.user);
         } else {
             if(PROTECT_ROUTE_DEBUG) {
                 console.log(`User not existent`);

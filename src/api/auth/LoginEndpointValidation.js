@@ -27,10 +27,16 @@ module.exports = class LoginEndpointValidation {
             return {
                 messages: this.errors,
                 loggedIn: false,
+                token: "",
             };
         } else {
             return {
                 loggedIn: true,
+                messages: [{
+                    error: false,
+                    message: "User logged in"
+                }],
+                token: "",
             };
         }
     }

@@ -33,13 +33,22 @@ loginRouter.post("/login", async (req, res) => {
             .send({
                 token,
                 loggedIn: true,
+                messages: [{
+                    error: false,
+                    message: "User logged in"
+                }]
             });
     } catch(err) {
         console.error(err);
         console.log(`There was an error when the user tried to log in redirecting to home`);
         return res
             .send({
-                loggedIn: true,
+                loggedIn: false,
+                messages: [{
+                    error: true,
+                    message: "Unknown error"
+                }],
+                token: ""
             });
     }
 });

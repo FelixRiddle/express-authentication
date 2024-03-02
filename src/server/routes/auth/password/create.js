@@ -42,7 +42,10 @@ createRouter.post("/create/:token", async (req, res) => {
         if(!result.isEmpty()) {
             console.log(`Validation didn't pass`);
             return res.send({
-                messages: result.array(),
+                messages: [{
+                    error: true,
+                    message: "Validation didn't pass!"
+                }],
                 updated: false,
             });
         }
@@ -51,6 +54,10 @@ createRouter.post("/create/:token", async (req, res) => {
         if(req.body.password != req.body.confirmPassword) {
             console.log(`Passwords don't match`);
             return res.send({
+                messages: [{
+                    error: true,
+                    message: "Passwords don't match!"
+                }],
                 updated: false,
             });
         }
@@ -65,6 +72,10 @@ createRouter.post("/create/:token", async (req, res) => {
         if(!user) {
             console.log(`User not found!`);
             return res.send({
+                messages: [{
+                    error: true,
+                    message: "User not found"
+                }],
                 updated: false,
             });
         }
@@ -86,12 +97,16 @@ createRouter.post("/create/:token", async (req, res) => {
         return res.send({
             messages: [{
                 message: "Password updated",
-                error :false,
+                error: false,
             }],
             updated: true,
         });
     } catch(err) {
         return res.send({
+            messages: [{
+                error: true,
+                message: "Unknown error"
+            }],
             updated: false,
         });
     }

@@ -79,6 +79,10 @@ resetRouter.post("/send_reset_email", async (req, res) => {
         }
         
         return res.send({
+            messages: [{
+                message: "Email sent",
+                error: false,
+            }],
             resetEmailSent: true,
         });
     } catch(err) {
