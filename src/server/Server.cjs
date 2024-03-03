@@ -134,7 +134,13 @@ module.exports = class Server {
         let new_origin = process.env.ORIGIN_1;
         if(new_origin) whitelist.push(new_origin);
         
+        // And another one
+        const nextFrontendUrl = process.env.GOOD_ROOTS_NEXT_FRONTEND_URL;
+        if(nextFrontendUrl) whitelist.push(nextFrontendUrl);
+        else console.log(`Warning: Next frontend url not found!!!`);
+        
         this.app.use(cors({
+            credentials: true,
             origin: [
                 ...whitelist,
             ]

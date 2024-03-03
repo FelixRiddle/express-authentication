@@ -7,10 +7,10 @@ const dataRouter = express.Router();
  */
 dataRouter.get("/data", async (req, res) => {
     try {
-        console.log(`/user/data`);
+        console.log(`GET /user/data`);
+        
         // We know the user has verified the token
         // So all we have to do is return req.user
-        console.log(`Req user(in /user/data): `, req.user);
         const user = req.user;
 
         return res.send({

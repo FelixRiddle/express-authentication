@@ -11,16 +11,20 @@ const LoginEndpointValidation = require("../../../api/auth/LoginEndpointValidati
 
 const loginGetJwtRouter = express.Router();
 
+/**
+ * Login get jwt
+ * 
+ */
 loginGetJwtRouter.post("/login_get_jwt", async(req, res) => {
-    console.log(`POST /auth/login_get_jwt`);
-    
     try {
+        console.log(`POST /auth/login_get_jwt`);
         const loginVal = new LoginEndpointValidation(req);
         
         // The result is the response object
         const result = await loginVal.loginValidation();
         // Check if it's an error, and if it's send it
         if(loginVal.isError()) {
+            console.log(`The user didn't pass validation`);
             return res.send(result);
         }
         
