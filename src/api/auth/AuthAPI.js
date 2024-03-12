@@ -78,35 +78,6 @@ module.exports = class AuthAPI {
      */
     setInstance(serverUrl, jwtToken = '') {
         this.instance = createAxiosInstance(serverUrl, "", jwtToken);
-        // // Location is not defined in nodejs
-        // const isUndefined = typeof(location) === 'undefined';
-        
-        // // Create headers
-        // let headers = {
-        //     "Content-Type": "application/json"
-        // };
-        // if(jwtToken) {
-        //     // Add jwt token
-        //     headers["Cookie"] = `_token=${jwtToken}`;
-        // }
-        
-        // if(!isUndefined) {
-        //     this.instance = axios.create({
-        //         withCredentials: true,
-        //         baseURL: `${location.origin}`,
-        //         timeout: 2000,
-        //         headers,
-        //     });
-        // } else if(!serverUrl) {
-        //     throw Error("Server url is required when the AuthenticationAPI is used in NodeJS");
-        // } else {
-        //     this.instance = axios.create({
-        //         withCredentials: true,
-        //         baseURL: `${serverUrl}`,
-        //         timeout: 2000,
-        //         headers,
-        //     });
-        // }
     }
     
     // --- For testing ---

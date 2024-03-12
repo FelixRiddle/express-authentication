@@ -7,6 +7,7 @@ const { MSQLDC_FetchENV } = require("app-models");
 const getUser = require("../middleware/auth/getUser");
 const routes = require("./routes/index")
 const { createPublicUserFolder } = require("../user/userFolder");
+const SERVER_URL_MAPPINGS = require("../mappings/env/SERVER_URL_MAPPINGS");
 
 /**
  * Server
@@ -128,11 +129,13 @@ module.exports = class Server {
         this.app.use(express.json())
         
         // Cors whitelist
-        let whitelist = [process.env.ORIGIN];
-        
-        // Add another one
-        let new_origin = process.env.ORIGIN_1;
-        if(new_origin) whitelist.push(new_origin);
+        const whitelist = [
+            process.env.ORIGIN,
+            SERVER_URL_MAPPINGS.AUTHENTICATION,
+            SERVER_URL_MAPPINGS.BACKDOOR_SERVER_ACCESS,
+            SERVER_URL_MAPPINGS.GOOD_ROOTS,
+            SERVER_URL_MAPPINGS.REAL_ESTATE,
+        ];
         
         // And another one
         const nextFrontendUrl = process.env.GOOD_ROOTS_NEXT_FRONTEND_URL;
