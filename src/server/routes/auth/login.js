@@ -47,8 +47,7 @@ loginRouter.post("/login", async (req, res) => {
                 messages: [{
                     error: true,
                     message: "Unknown error"
-                }],
-                token: ""
+                }]
             });
     }
 });

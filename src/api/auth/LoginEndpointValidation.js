@@ -27,7 +27,6 @@ module.exports = class LoginEndpointValidation {
             return {
                 messages: this.errors,
                 loggedIn: false,
-                token: "",
             };
         } else {
             return {
@@ -36,7 +35,6 @@ module.exports = class LoginEndpointValidation {
                     error: false,
                     message: "User logged in"
                 }],
-                token: "",
             };
         }
     }
@@ -52,7 +50,6 @@ module.exports = class LoginEndpointValidation {
             ...this.user.dataValues,
             // Remove sensitive stuff
             password: "",
-            token: "",
         };
         return userSafe;
     }
