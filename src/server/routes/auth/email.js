@@ -10,9 +10,9 @@ const emailRouter = express.Router();
  * 
  */
 emailRouter.post("/email", async(req, res) => {
-    console.log(`POST /auth/email`);
-    
     try {
+        console.log(`POST /auth/email`);
+        
         // Get the private key
         const privateKey = req.body.key;
         
@@ -20,6 +20,10 @@ emailRouter.post("/email", async(req, res) => {
             console.log(`Private access key not given`);
             return res.send({
                 emailConfirmed: false,
+                messages: [{
+                    message: "Unknown error",
+                    error: true,
+                }]
             });
         }
         
@@ -35,6 +39,10 @@ emailRouter.post("/email", async(req, res) => {
             console.log(`Naughty, naughty 😈👿`);
             return res.send({
                 emailConfirmed: false,
+                messages: [{
+                    message: "Unknown error",
+                    error: true,
+                }]
             });
         }
         
@@ -44,6 +52,10 @@ emailRouter.post("/email", async(req, res) => {
             console.log(`Can't confirm email without an email`);
             return res.send({
                 emailConfirmed: false,
+                messages: [{
+                    message: "Unknown error",
+                    error: true,
+                }]
             });
         }
         
@@ -58,6 +70,10 @@ emailRouter.post("/email", async(req, res) => {
             console.log(`Couldn't confirm the E-Mail, because the user doesn't exists!`);
             return res.send({
                 emailConfirmed: false,
+                messages: [{
+                    message: "Unknown error",
+                    error: true,
+                }]
             });
         } else {
             // Update the user
@@ -70,12 +86,17 @@ emailRouter.post("/email", async(req, res) => {
         console.log(`Email confirmed!`);
         return res.send({
             emailConfirmed: true,
+            messages: []
         });
     } catch(err) {
         console.log(`Error when confirming the email.`);
         console.error(err);
         return res.send({
             emailConfirmed: false,
+            messages: [{
+                message: "Unknown error",
+                error: true,
+            }]
         });
     }
 });
