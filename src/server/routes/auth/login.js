@@ -16,6 +16,8 @@ loginRouter.post("/login", async (req, res) => {
         const result = await loginVal.loginValidation();
         // Check if it's an error, and if it's send it
         if(loginVal.isError()) {
+            console.log(`Error when trying to log in:`);
+            console.log(result);
             return res.send(result);
         }
         
@@ -39,8 +41,8 @@ loginRouter.post("/login", async (req, res) => {
                 }]
             });
     } catch(err) {
+        console.log(`There was an error when the user tried to log in: `);
         console.error(err);
-        console.log(`There was an error when the user tried to log in redirecting to home`);
         return res
             .send({
                 loggedIn: false,
