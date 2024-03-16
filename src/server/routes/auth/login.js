@@ -7,9 +7,9 @@ const loginRouter = express.Router();
 
 // Backend authentication 
 loginRouter.post("/login", async (req, res) => {
-    console.log(`POST /auth/login`);
-    
     try {
+        console.log(`POST /auth/login`);
+        
         const loginVal = new LoginEndpointValidation(req);
         
         // The result is the response object
