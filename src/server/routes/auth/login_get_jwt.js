@@ -37,19 +37,22 @@ loginGetJwtRouter.post("/login_get_jwt", async(req, res) => {
         
         console.log(`User logged in`);
         
+        const responseData = {
+            loggedIn: true,
+            token,
+            messages: [{
+                message: "User logged in",
+                error: false,
+            }]
+        };
+        console.log(`Response data: `, responseData);
+        
         // Store cookie
         return res
             .cookie("_token", token, {
                 httpOnly: false,
             })
-            .send({
-                loggedIn: true,
-                token,
-                messages: [{
-                    message: "User logged in",
-                    error: false,
-                }]
-            });
+            .send(responseData);
     } catch(err) {
         console.log(`There was an error when the user tried to log in.`);
         console.error(err);
