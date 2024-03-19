@@ -26,96 +26,9 @@ module.exports = class Server {
      * Start serving requests
      */
     async serve() {
-        // TODO: This can be put into the repository 'configuration-mappings' to not
-        // have to do it for each other repository('real-estate', 'backdoor-server-access', etc.)
-        
-        // Port priority
-        // TODO: process.env.SERVER_PORT > Default url port > Random ephemeral port
-        
-        // Attempt 3
-        const attempt3 = async () => {
-            // --- Ephemeral port ---
-            console.log(`Attempt 3`);
-            
-            // The original port didn't work?
-            // Let's use another one
-            const seeker = new PortSeeker();
-            const port = await seeker.firstOpen();
-            
-            // TODO: Set the new port in configuration
-            
-            // TODO: Make other servers aware of it
-            
-            // If the server couldn't start then we will try with another port
-            const serverInstance = this.app.listen(port, () => {
-                console.log(`Server running at http://${process.env.SERVER_HOST}:${port}`);
-            });
-            
-            serverInstance.on('error', (err) => {
-                // console.log(`On error`);
-                // console.error(err);
-                
-                console.log(`Server couldn't start!`);
-                console.log(`No more attempts`);
-            });
-        }
-        
-        const attempt2 = async () => {
-            // --- Default port ---
-            console.log(`Attempt 2`);
-            
-            // Parse url
-            const defaultUrl = ConfMap.SERVERS_DEFAULT_LOCATION['express-authentication'];
-            const parsedDefaultUrl = new URL(defaultUrl);
-            
-            const port = parsedDefaultUrl.port;
-            
-            console.log(`New port: `, port);
-            
-            const serverInstance = this.app.listen(port, () => {
-                console.log(`Server running at http://${process.env.SERVER_HOST}:${port}`);
-            });
-            
-            serverInstance.on('error', async (err) => {
-                // console.log(`On error`);
-                // console.error(err);
-                
-                console.log(`Server couldn't start!`);
-                await attempt3();
-            });
-        }
-        
-        const attempt1 = async () => {
-            // --- Environment port ---
-            // Will use 3000 if available, otherwise fall back to a random port
-            // Try to open the server
-            let port = process.env.SERVER_PORT;
-        
-            console.log(`Attempt 1`);
-            
-            // Parse port
-            if(typeof port === typeof "") {
-                port = parseInt(port);
-            }
-            
-            console.log(`Port: `, port);
-            
-            const instance = this.app.listen(port, () => {
-                console.log(`Server running at http://${process.env.SERVER_HOST}:${port}`);
-            });
-            
-            // To catch errors you have to do this
-            // (I didn't know 😭😭)
-            instance.on('error', async (err) => {
-                // console.log(`On error`);
-                // console.error(err);
-                
-                console.log(`Server couldn't start!`);
-                await attempt2();
-            });
-        }
-        
-        await attempt1();
+        // Complete implementation of port(env, default and ephemeral) management
+        const locSelector = new ConfMap.LocationSelection();
+        await locSelector.selectLocation(this.app);
     }
     
     /**
