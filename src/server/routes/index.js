@@ -1,5 +1,7 @@
 const express = require("express");
 
+const ConfigurationMappings = require("felixriddle.configuration-mappings");
+
 const protectRoute = require("../../middleware/auth/protectRoute")
 
 const authRoutes = require("./auth/index");
@@ -14,6 +16,7 @@ routes.use("/auth", authRoutes);
 // Protected routes
 routes.use("/user", protectRoute, userRoutes);
 routes.use("/middleware", middlewareRouter);
+routes.use(ConfigurationMappings.serverConfigurationRouter);
 
 // Access through public alias
 // This prevents route protection like /user

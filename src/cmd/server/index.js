@@ -4,7 +4,7 @@ const Server = require('../../server/Server.cjs');
 /**
  * Start the server
  */
-function startServer() {
+async function startServer() {
     
     console.log(`Server url: ${envServerUrl()}`);
     console.log(`Is email disabled?: `, isEmailDisabled());
@@ -15,7 +15,7 @@ function startServer() {
     server.setup();
     
     // Serve
-    server.serve();
+    await server.serve();
 }
 
 /**
@@ -25,7 +25,7 @@ async function serverMain(args) {
     // Seed categories
     if(args.serve) {
         // Start server
-        startServer();
+        await startServer();
     }
     
     return args;
