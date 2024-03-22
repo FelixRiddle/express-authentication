@@ -27,6 +27,11 @@ registerRouter.post("/register", async (req, res) => {
                 messages: [{
                     message: "Passwords don't match.",
                     error: true,
+                    field: 'password'
+                }, {
+                    message: "Passwords don't match.",
+                    error: true,
+                    field: 'confirmPassword'
                 }],
                 user: req.body,
                 userRegistered: false,
@@ -56,6 +61,7 @@ registerRouter.post("/register", async (req, res) => {
         const userModel = new User();
         const userExists = await userModel.findOne({ where: { email } });
         if(userExists) {
+            console.log(`The given email is already in use`);
             console.log(`User found: `, userExists);
             console.log(`Not creating user`);
             return res.send({
@@ -66,6 +72,7 @@ registerRouter.post("/register", async (req, res) => {
                 messages: [{
                     message: "The given E-Mail is already in use, try another or log in.",
                     error: false,
+                    field: 'email',
                 }],
                 user: req.body,
                 userRegistered: false,
@@ -78,7 +85,6 @@ registerRouter.post("/register", async (req, res) => {
             token: generateId(),
             confirmedEmail: false,
         });
-        console.log(`User model created`);
         
         // Check if sending email is enabled or not
         if(!isEmailDisabled()) {
@@ -89,6 +95,7 @@ registerRouter.post("/register", async (req, res) => {
                 token: user.token,
             });
         }
+        console.log(`User created`);
         
         // Show confirmation message
         return res.send({
