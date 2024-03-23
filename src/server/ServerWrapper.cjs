@@ -2,24 +2,24 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const express = require('express');
 
-const { mysqlConn } = require("felixriddle.ts-app-models");
+const ConfMap = require("felixriddle.configuration-mappings");
 
 const getUser = require("../middleware/auth/getUser");
-const routes = require("./routes/index")
+// TODO: I'm gonna have to generalize this one and make it an application folder
+// Something like '/srv/www/auth'
+// For real estate
+// '/srv/www/real'
 const { createPublicUserFolder } = require("../user/userFolder");
 const SERVER_URL_MAPPINGS = require("../mappings/env/SERVER_URL_MAPPINGS");
-const ConfMap = require("felixriddle.configuration-mappings");
 const useGeneralModels = require('./useGeneralModels');
 
 /**
  * Server
  */
-module.exports = class Server {
+module.exports = class ServerWrapper {
     constructor() {
         const app = express();
         this.app = app;
-        
-        this.createDirectories();
     }
     
     /**
@@ -37,13 +37,6 @@ module.exports = class Server {
     async setup() {
         await this.setupMiddleware();
         
-        this.mountRoutes();
-    }
-    
-    /**
-     * Create directories if they don't exist
-     */
-    createDirectories() {
         // Public user folder, so they upload thingies
         createPublicUserFolder();
     }
@@ -51,7 +44,7 @@ module.exports = class Server {
     /**
      * Mount routes
      */
-    mountRoutes() {
+    mountRoutes(routes) {
         // Use a single instance of sequelize for every connection
         // (How it should be used, but I didn't know before 😡😡😭😭😭)
         this.app.use(useGeneralModels());
@@ -157,18 +150,5 @@ module.exports = class Server {
         
         // Enable cookie parser
         this.app.use(cookieParser());
-        
-        // Connect to db
-        try {
-            const connection = mysqlConn();
-            
-            await connection.authenticate();
-            
-            connection.sync();
-            
-            console.log("Successfully connected to db");
-        } catch(err) {
-            console.error(err);
-        }
     }
 };

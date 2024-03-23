@@ -1,22 +1,13 @@
-const { isEmailDisabled, envServerUrl } = require("../../controllers/env/env");
-const Server = require('../../server/Server.cjs');
-const clusterServer = require("./clusterServer");
+const Server = require("../../server/Server");
+const routes = require("../../server/routes/index");
 
 /**
  * Start the server
  */
 async function startServer() {
-    
-    console.log(`Server url: ${envServerUrl()}`);
-    console.log(`Is email disabled?: `, isEmailDisabled());
-    
-    let server = new Server();
-    
-    // Setup middleware, mount routes
-    server.setup();
-    
-    // Serve
-    await server.serve();
+    const server = new Server();
+    await server.mountRoutes(routes)
+        .startClusterServer();
 }
 
 /**
@@ -26,10 +17,7 @@ async function serverMain(args) {
     // Seed categories
     if(args.serve) {
         // Start server
-        // await startServer();
-        
-        // Cluster server
-        await clusterServer();
+        await startServer();
     }
     
     return args;
