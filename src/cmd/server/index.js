@@ -1,5 +1,6 @@
 const { isEmailDisabled, envServerUrl } = require("../../controllers/env/env");
 const Server = require('../../server/Server.cjs');
+const clusterServer = require("./clusterServer");
 
 /**
  * Start the server
@@ -25,7 +26,10 @@ async function serverMain(args) {
     // Seed categories
     if(args.serve) {
         // Start server
-        await startServer();
+        // await startServer();
+        
+        // Cluster server
+        await clusterServer();
     }
     
     return args;
