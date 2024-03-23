@@ -1,7 +1,6 @@
 const express = require("express");
 
 const { BackendServerAccessAPI } = require("backdoor-server-access");
-const { User } = require("app-models");
 
 const emailRouter = express.Router();
 
@@ -60,7 +59,7 @@ emailRouter.post("/email", async(req, res) => {
         }
         
         // Verify if the token is correct
-        const userModel = new User();
+        const userModel = req.models.user();
         const user = await userModel.findOne({
             where: {
                 email,

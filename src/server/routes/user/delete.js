@@ -1,7 +1,5 @@
 const express = require("express");
 
-const { User } = require("app-models");
-
 const protectRoute = require("../../../middleware/auth/protectRoute.js");
 
 const deleteRouter = express.Router();
@@ -14,7 +12,7 @@ deleteRouter.post("/delete", protectRoute, async (req, res) => {
         const { email } = userData;
         
         // Get the user
-        const userModel = new User();
+        const userModel = req.models.user();
         let user = await userModel.findOne({
             where: {
                 email,

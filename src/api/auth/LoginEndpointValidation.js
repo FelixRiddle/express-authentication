@@ -1,7 +1,5 @@
 const { check, validationResult } = require("express-validator");
 
-const { User } = require("app-models");
-
 /**
  * A whole class for easier handling of the login validation
  */
@@ -99,7 +97,7 @@ module.exports = class LoginEndpointValidation {
         const { email, password } = this.userData;
         
         // Get the user
-        const userModel = new User();
+        const userModel = this.req.models.user();
         let user = await userModel.findOne({
             where: {
                 email,

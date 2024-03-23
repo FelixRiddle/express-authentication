@@ -2,8 +2,6 @@ const { check, validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
 const express = require("express");
 
-const { User } = require("app-models");
-
 // When resetting the password
 const createRouter = express.Router();
 
@@ -63,7 +61,7 @@ createRouter.post("/create/:token", async (req, res) => {
         }
         
         // If the user was found, then it's correct
-        const userModel = new User();
+        const userModel = req.models.user();
         const user = await userModel.findOne({
             where: {
                 token

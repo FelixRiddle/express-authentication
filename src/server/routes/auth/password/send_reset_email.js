@@ -2,7 +2,6 @@ const { check, validationResult } = require("express-validator");
 const express = require("express");
 const { v4: uuidv4 } = require('uuid');
 
-const { User } = require("app-models");
 const { emailForgotPassword } = require("../../../../helpers/emails");
 const { isEmailDisabled } = require("../../../../controllers/env/env");
 
@@ -45,7 +44,7 @@ resetRouter.post("/send_reset_email", async (req, res) => {
         
         // Search for the user
         const { email } = req.body;
-        const userModel = new User();
+        const userModel = req.models.user();
         const user = await userModel.findOne({
             where: {
                 email

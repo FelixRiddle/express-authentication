@@ -5,8 +5,6 @@
  */
 const jwt = require("jsonwebtoken");
 
-const { User, } = require("app-models");
-
 const GET_USER_DEBUG = false;
 
 /**
@@ -37,7 +35,7 @@ const getUser = async (req, res, next) =>  {
             }
             
             // Validate user
-            const userModel = new User();
+            const userModel = req.models.user();
             const user = await userModel.scope("deletePassword").findByPk(decoded.id);
             
             // Store user on the request

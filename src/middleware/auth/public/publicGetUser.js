@@ -3,7 +3,6 @@
  * 
  * Different from protectRoute, because in this middleware the user is optional.
  */
-const { User, } = require("app-models");
 const UserAPI = require("../../../api/secure/UserAPI");
 
 const GET_USER_DEBUG = false;
@@ -31,7 +30,7 @@ const publicGetUser = async (req, res, next) =>  {
             }
             
             // Validate user
-            const userModel = new User();
+            const userModel = req.models.user();
             const user = await userModel.scope("deletePassword").findByPk(userData.id);
             
             // Store user on the request

@@ -1,7 +1,5 @@
 const express = require("express");
 
-const { User } = require("app-models");
-
 const { registerEmail } = require("../../../helpers/emails");
 const { generateId } = require("../../../helpers/tokens");
 const expand = require("../../../controllers/expand");
@@ -58,7 +56,7 @@ registerRouter.post("/register", async (req, res) => {
         let { name, email, password } = req.body;
         
         // Verify that the user is not duplicated
-        const userModel = new User();
+        const userModel = req.models.user();
         const userExists = await userModel.findOne({ where: { email } });
         if(userExists) {
             console.log(`The given email is already in use`);

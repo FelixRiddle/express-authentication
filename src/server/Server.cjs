@@ -2,14 +2,14 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const express = require('express');
 
-const { MSQLDC_FetchENV } = require("app-models");
+const { mysqlConn } = require("felixriddle.ts-app-models");
 
 const getUser = require("../middleware/auth/getUser");
 const routes = require("./routes/index")
 const { createPublicUserFolder } = require("../user/userFolder");
 const SERVER_URL_MAPPINGS = require("../mappings/env/SERVER_URL_MAPPINGS");
-const { PortSeeker } = require('felixriddle.port-seeker');
 const ConfMap = require("felixriddle.configuration-mappings");
+const useGeneralModels = require('./useGeneralModels');
 
 /**
  * Server
@@ -52,6 +52,11 @@ module.exports = class Server {
      * Mount routes
      */
     mountRoutes() {
+        // Use a single instance of sequelize for every connection
+        // (How it should be used, but I didn't know before 😡😡😭😭😭)
+        this.app.use(useGeneralModels());
+        
+        // For every route, try to fetch the user
         this.app.use(getUser, routes);
     }
     
@@ -155,11 +160,11 @@ module.exports = class Server {
         
         // Connect to db
         try {
-            const mysqlConn = MSQLDC_FetchENV();
+            const connection = mysqlConn();
             
-            await mysqlConn.authenticate();
+            await connection.authenticate();
             
-            mysqlConn.sync();
+            connection.sync();
             
             console.log("Successfully connected to db");
         } catch(err) {

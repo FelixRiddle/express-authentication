@@ -1,7 +1,5 @@
 const jwt = require("jsonwebtoken");
 
-const { User } = require("app-models");
-
 const PROTECT_ROUTE_DEBUG = true;
 
 /**
@@ -40,7 +38,7 @@ const protectRoute = async (req, res, next) =>  {
         const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
         
         // Validate user
-        const userModel = new User();
+        const userModel = req.models.user();
         const user = await userModel.scope("deletePassword").findOne({
             where: {
                 id: decoded.id,

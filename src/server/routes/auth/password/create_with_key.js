@@ -4,8 +4,6 @@ const bcrypt = require("bcrypt");
 
 const { BackendServerAccessAPI } = require("backdoor-server-access");
 
-const { User } = require("app-models");
-
 const createWithKeyRouter = express.Router();
 
 /**
@@ -98,7 +96,7 @@ createWithKeyRouter.post("/create_with_key", async (req, res) => {
         }
         
         // If the user was found, then it's correct
-        const userModel = new User();
+        const userModel = req.models.user();
         const user = await userModel.findOne({
             where: {
                 email
