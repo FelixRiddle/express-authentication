@@ -52,9 +52,6 @@ module.exports = class Server {
      * Start single server
      */
     async startServer() {
-        // Setup middleware, mount routes
-        this.server.setup();
-        
         // Serve
         await this.server.serve();
     }
@@ -66,6 +63,13 @@ module.exports = class Server {
         if(this.routesMounted) {
             throw Error("You've tried to mount routes twice!");
         }
+        
+        if(!routes) {
+            throw Error("You didn't give any routes");
+        }
+        
+        // Setup middleware, mount routes
+        this.server.setup();
         
         this.server.mountRoutes(routes);
         

@@ -1,12 +1,25 @@
-const Server = require("../../server/Server");
+const { Server } = require("felixriddle.risotto");
+
 const routes = require("../../server/routes/index");
+const ExpressAuthenticationServer = require("../../server/Server");
 
 /**
  * Start the server
  */
+async function risottoServe() {
+    const server = new Server('express-authentication');
+    await server
+        .mountRoutes(routes)
+        .startClusterServer();
+}
+
+/**
+ * Start clustered server
+ */
 async function startServer() {
-    const server = new Server();
-    await server.mountRoutes(routes)
+    const server = new ExpressAuthenticationServer();
+    await server
+        .mountRoutes(routes)
         .startClusterServer();
 }
 

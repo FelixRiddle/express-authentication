@@ -26,9 +26,16 @@ module.exports = class ServerWrapper {
      * Start serving requests
      */
     async serve() {
-        // Complete implementation of port(env, default and ephemeral) management
-        const locSelector = new ConfMap.LocationSelection();
-        await locSelector.selectLocation(this.app, 'express-authentication');
+        // I can't use this one yet, because I don't know how to communicate with clusters
+        // // Complete implementation of port(env, default and ephemeral) management
+        // const locSelector = new ConfMap.LocationSelection();
+        // await locSelector.selectLocation(this.app, 'express-authentication');
+        
+        const port = 38001;
+        const url = `http://localhost:${port}`;
+        this.app.listen(port, () => {
+            console.log(`Server listening at ${url}`);
+        });
     }
     
     /**
@@ -46,7 +53,6 @@ module.exports = class ServerWrapper {
      */
     mountRoutes(routes) {
         // Use a single instance of sequelize for every connection
-        // (How it should be used, but I didn't know before 😡😡😭😭😭)
         this.app.use(useGeneralModels());
         
         // For every route, try to fetch the user
