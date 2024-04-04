@@ -11,6 +11,11 @@ Or even simplier
 
 [1.0.0]
 
+<!-- Separate into versions, that would be better -->
+* Reset password through email link
+
+[0.1.1]
+
 * User has to confirm their email before logging in
 
 [0.1.0]
