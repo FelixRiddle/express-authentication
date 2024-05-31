@@ -1,3 +1,4 @@
+const dotenv = require('dotenv');
 const { setupAll } = require("./controllers/env/setDefaultEnvVariables");
 
 // Set environment variables
@@ -9,6 +10,8 @@ const executeCommands = require("./cmd/index");
 
 // Run server
 (async () => {
+    dotenv.config();
+    
     // Create folders
     testSetup();
     

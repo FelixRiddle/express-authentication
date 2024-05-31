@@ -7,7 +7,8 @@
     "test": "jest",
     "start": "nodemon src/index.js",
     "serve": "nodemon src/index.js -- --serve",
-    "dev": "concurrently \"DEBUG=express:view DEVELOPMENT=1 npm run serve\""
+    "dev": "npm run serve",
+    "dev_old": "concurrently \"DEBUG=express:view DEVELOPMENT=1 npm run serve\""
   },
   "keywords": [],
   "author": "",
