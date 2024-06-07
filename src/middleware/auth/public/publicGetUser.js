@@ -7,7 +7,14 @@ const UserAPI = require("../../../api/secure/UserAPI");
 
 const GET_USER_DEBUG = false;
 
-// Get user
+/**
+ * 
+ * @deprecated Use from 'good-roots-ts-api' the function 'UserAPI.fromJWT(token)' instead
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ * @returns 
+ */
 const publicGetUser = async (req, res, next) =>  {
     // Validate token
     try {
