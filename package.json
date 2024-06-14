@@ -1,6 +1,6 @@
 {
   "name": "felixriddle.express-authentication",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "",
   "main": "index.js",
   "scripts": {

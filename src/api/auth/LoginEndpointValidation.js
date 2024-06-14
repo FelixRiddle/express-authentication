@@ -41,15 +41,31 @@ module.exports = class LoginEndpointValidation {
      * Get user without sensitive fields
      * 
      * @returns {object} User object
+     * 
+     * @deprecated Use 'userSafe'
      */
     getUserSafe() {
         // Remove the password from the user object
         const userSafe = {
             ...this.user.dataValues,
             // Remove sensitive stuff
-            password: "",
+            password: ""
         };
         return userSafe;
+    }
+    
+    /**
+     * Previously I didn't consider email as sensitive but now I do
+     */
+    userSafe() {
+        let user = this.user.dataValues;
+        
+        // Remove sensitive information
+        delete user.password;
+        delete user.token;
+        delete user.email;
+        
+        return user;
     }
     
     /**

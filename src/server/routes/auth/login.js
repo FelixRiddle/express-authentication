@@ -25,7 +25,8 @@ loginRouter.post("/login", async (req, res) => {
         const userSafe = loginVal.getUserSafe();
         const token = generateJwtToken(userSafe);
         
-        console.log(`Login ok, storing user cookie and redirecting to home`);
+        // Remove sensitive information
+        const user = loginVal.userSafe();
         
         // Store cookie
         return res
@@ -33,6 +34,7 @@ loginRouter.post("/login", async (req, res) => {
                 httpOnly: false,
             })
             .send({
+                user,
                 token,
                 loggedIn: true,
                 messages: [{

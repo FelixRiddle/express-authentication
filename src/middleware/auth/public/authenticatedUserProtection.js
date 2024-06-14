@@ -30,6 +30,9 @@ const authenticatedUserProtection = async (req, res, next) =>  {
             });
         }
         
+        // TODO: This could be improved if this app is treated as a package and installed in an app
+        // and we can validate jwt directly
+        
         // Fetch the user
         const userApi = await UserAPI.fromJWT(token);
         const user = userApi.userData;
