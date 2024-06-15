@@ -1,11 +1,10 @@
 const dotenv = require("dotenv");
 const { v4: uuidv4 } = require("uuid");
 
-const AuthAPI = require("../../../api/auth/AuthAPI");
+const { FrontendAuthAPI, UserAPI } = require("felixriddle.good-roots-ts-api");
+
 const { envServerUrl } = require("../../../controllers/env/env");
 const serverUrl = require("../../../public/web/serverUrl");
-const UserAPI = require("../../../api/secure/UserAPI");
-
 test("Fetch user data", async () => {
     // Setup dotenv
     dotenv.config({
@@ -26,7 +25,7 @@ test("Fetch user data", async () => {
     const url = serverUrl(ENV_SERVER_URL);
     
     // Auth api
-    const api = new AuthAPI(userData, url);
+    const api = new FrontendAuthAPI(userData, url);
     
     // Result
     await api.registerUser();

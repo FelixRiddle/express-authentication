@@ -3,7 +3,7 @@
  * 
  * Different from protectRoute, because in this middleware the user is optional.
  */
-const UserAPI = require("../../../api/secure/UserAPI");
+const { UserAPI } = require("felixriddle.good-roots-ts-api");
 
 const GET_USER_DEBUG = false;
 

@@ -2,8 +2,6 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const express = require('express');
 
-const ConfMap = require("felixriddle.configuration-mappings");
-
 const getUser = require("../middleware/auth/getUser");
 // TODO: I'm gonna have to generalize this one and make it an application folder
 // Something like '/srv/www/auth'

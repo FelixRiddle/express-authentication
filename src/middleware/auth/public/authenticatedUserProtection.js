@@ -1,4 +1,4 @@
-const UserAPI = require("../../../api/secure/UserAPI");
+const { UserAPI } = require("felixriddle.good-roots-ts-api");
 
 /**
  * Authenticated user protection

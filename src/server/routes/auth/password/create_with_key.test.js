@@ -1,11 +1,9 @@
 const dotenv = require("dotenv");
 const { v4: uuidv4 } = require("uuid");
 
-const AuthAPI = require("../../../../api/auth/AuthAPI");
-const UserAPI = require("../../../../api/secure/UserAPI");
+const { FrontendAuthAPI, ResetPasswordAPI, UserAPI } = require("felixriddle.good-roots-ts-api");
+
 const { envServerUrl } = require("../../../../controllers/env/env");
-const ResetPasswordAPI = require("../../../../api/auth/password/ResetPasswordAPI");
-const { registerEmail } = require("../../../../helpers/emails");
 
 /**
  * Send reset email without authentication
@@ -26,7 +24,7 @@ test('Create new password', async function() {
         password: userPassword,
         confirmPassword: userPassword
     };
-    const api = new AuthAPI(userData, url);
+    const api = new FrontendAuthAPI(userData, url);
     
     // Create user and login
     await api.registerUser();
@@ -46,7 +44,7 @@ test('Create new password', async function() {
     const res = await passApi.createWithKey();
     
     // Now login with that
-    const newApi = new AuthAPI(newUserData, url);
+    const newApi = new FrontendAuthAPI(newUserData, url);
     const loginResult = await newApi.loginGetJwt();
     
     // User api

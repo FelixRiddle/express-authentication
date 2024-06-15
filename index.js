@@ -18,11 +18,11 @@ const publicGetUser = require("./src/middleware/auth/public/publicGetUser");
 // It's not working for me heh
 module.exports = {
     // API's
-    AuthAPI,
+    // AuthAPI,
     LoginEndpointValidation,
-    FrontendAuthAPI,
-    ResetPasswordAPI,
-    UserAPI,
+    // FrontendAuthAPI,
+    // ResetPasswordAPI,
+    // UserAPI,
     
     // Env
     env,

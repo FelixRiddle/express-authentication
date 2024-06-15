@@ -1,10 +1,9 @@
 const dotenv = require("dotenv");
 const { v4: uuidv4 } = require("uuid");
 
-const AuthAPI = require("../../../../api/auth/AuthAPI");
-const UserAPI = require("../../../../api/secure/UserAPI");
+const { UserAPI, FrontendAuthAPI, ResetPasswordAPI } = require("felixriddle.good-roots-ts-api");
+
 const { envServerUrl } = require("../../../../controllers/env/env");
-const ResetPasswordAPI = require("../../../../api/auth/password/ResetPasswordAPI");
 
 /**
  * You can do it whether you're authenticated or not
@@ -24,7 +23,7 @@ test('Reset email sent(Authenticated)', async function() {
         password: userPassword,
         confirmPassword: userPassword
     };
-    const api = new AuthAPI(userData, url);
+    const api = new FrontendAuthAPI(userData, url);
     
     await api.registerUser();
     await api.confirmUserEmailWithPrivateKey(userData.email);
