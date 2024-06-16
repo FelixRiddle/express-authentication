@@ -35,7 +35,7 @@ const authenticatedUserProtection = async (req, res, next) =>  {
         
         // Fetch the user
         const userApi = await UserAPI.fromJWT(token);
-        const user = userApi.userData;
+        const user = await userApi.getUserData();
         
         // Validate that the user exists
         // The token should be decoded and the user validated before even validating the signature
